@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="19" time="46.832" timestamp="2026-10-20T08:54:00.872925-05:00" hostname="192.168.80.23"><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[pdf-merge-dark]" time="3.392" /><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[pdf-merge-light]" time="3.701" /><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[pdf-split-dark]" time="5.806" /><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[pdf-split-light]" time="5.918" /><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[optimize-dark]" time="0.991" /><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[optimize-light]" time="1.037" /><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[archive-dark]" time="2.176" /><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[archive-light]" time="2.096" /><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[crop-dark]" time="1.647" /><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[crop-light]" time="1.302" /><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[resize-dark]" time="1.142" /><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[resize-light]" time="1.380" /><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[images-pdf-dark]" time="1.971" /><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[images-pdf-light]" time="2.215" /><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[metadata-dark]" time="1.063" /><testcase classname="tests.test_tools_gui" name="test_configuration_windows_and_runtime_qml[metadata-light]" time="1.038" /><testcase classname="tests.test_tools_gui" name="test_category_navigation_and_real_resize" time="2.497" /><testcase classname="tests.test_tools_gui" name="test_crop_visual_coordinates_match_output" time="3.208" /><testcase classname="tests.test_tools_gui" name="test_drag_order_and_page_selection" time="4.081"><failure message="AssertionError: assert PosixPath('/tmp/pytest-of-camiska/pytest-9/test_drag_order_and_page_selec0/documento 2.pdf') == PosixPath('/tmp/pytest-of-camiska/pytest-9/test_drag_order_and_page_selec0/documento 0.pdf')">qt_app = &lt;PySide6.QtWidgets.QApplication(0x558e86b07040) at 0x7f3f3dd92900&gt;
+tmp_path = PosixPath('/tmp/pytest-of-camiska/pytest-9/test_drag_order_and_page_selec0')
+
+    @pytest.mark.gui
+    def test_drag_order_and_page_selection(qt_app,tmp_path):
+        paths=[]
+        for i in range(3):
+            p=tmp_path/f'documento {i}.pdf'
+            with pymupdf.open() as doc:
+                for n in range(30):doc.new_page().insert_text((30,50),f'Documento {i} pagina {n}')
+                doc.save(p)
+            paths.append(p)
+        c,e,w,errors=setup_window(paths);child=open_tool(c,w,'pdf-merge');wait(lambda:not c._jobs)
+        handle=next(i for i in visual_items(child.contentItem()) if i.objectName()=='dragRow_0')
+        start=handle.mapToScene(QPointF(15,30)).toPoint();end=start+__import__('PySide6.QtCore',fromlist=['QPoint']).QPoint(0,165)
+        QTest.mousePress(child,Qt.LeftButton,Qt.NoModifier,start);QTest.mouseMove(child,end,90);QTest.mouseMove(child,end,30);QTest.mouseRelease(child,Qt.LeftButton,Qt.NoModifier,end)
+        QTest.qWait(80)
+&gt;       assert c.tool.files[-1]==paths[0]
+E       AssertionError: assert PosixPath('/tmp/pytest-of-camiska/pytest-9/test_drag_order_and_page_selec0/documento 2.pdf') == PosixPath('/tmp/pytest-of-camiska/pytest-9/test_drag_order_and_page_selec0/documento 0.pdf')
+
+tests/test_tools_gui.py:125: AssertionError</failure></testcase></testsuite></testsuites>

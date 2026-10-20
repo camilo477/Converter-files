@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="11" skipped="0" tests="13" time="15.834" timestamp="2026-10-20T08:47:53.496956-05:00" hostname="192.168.80.23"><testcase classname="tests.test_gui" name="test_layout_keyboard_and_escape[0]" time="0.052"><failure message="assert []&#10; +  where [] = &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a88556dc0&gt;()&#10; +    where &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a88556dc0&gt; = &lt;PySide6.QtQml.QQmlApplicationEngine(0x55f964e3e670) at 0x7f5a88556dc0&gt;.rootObjects">qt_app = &lt;PySide6.QtWidgets.QApplication(0x55f964d2ceb0) at 0x7f5a885545c0&gt;
+count = 0
+
+    @pytest.mark.gui
+    @pytest.mark.parametrize("count", [0,2,3,6,8,12])
+    def test_layout_keyboard_and_escape(qt_app,count):
+        c=FakeController(count)
+        if not count: c.state="unavailable"
+&gt;       e=create_engine(c); assert e.rootObjects()
+                            ^^^^^^^^^^^^^^^^^^^^^^
+E       assert []
+E        +  where [] = &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a88556dc0&gt;()
+E        +    where &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a88556dc0&gt; = &lt;PySide6.QtQml.QQmlApplicationEngine(0x55f964e3e670) at 0x7f5a88556dc0&gt;.rootObjects
+
+tests/test_gui.py:35: AssertionError</failure></testcase><testcase classname="tests.test_gui" name="test_layout_keyboard_and_escape[2]" time="0.030"><failure message="assert []&#10; +  where [] = &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a88363000&gt;()&#10; +    where &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a88363000&gt; = &lt;PySide6.QtQml.QQmlApplicationEngine(0x55f964e07ac0) at 0x7f5a88363000&gt;.rootObjects">qt_app = &lt;PySide6.QtWidgets.QApplication(0x55f964d2ceb0) at 0x7f5a885545c0&gt;
+count = 2
+
+    @pytest.mark.gui
+    @pytest.mark.parametrize("count", [0,2,3,6,8,12])
+    def test_layout_keyboard_and_escape(qt_app,count):
+        c=FakeController(count)
+        if not count: c.state="unavailable"
+&gt;       e=create_engine(c); assert e.rootObjects()
+                            ^^^^^^^^^^^^^^^^^^^^^^
+E       assert []
+E        +  where [] = &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a88363000&gt;()
+E        +    where &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a88363000&gt; = &lt;PySide6.QtQml.QQmlApplicationEngine(0x55f964e07ac0) at 0x7f5a88363000&gt;.rootObjects
+
+tests/test_gui.py:35: AssertionError</failure></testcase><testcase classname="tests.test_gui" name="test_layout_keyboard_and_escape[3]" time="0.029"><failure message="assert []&#10; +  where [] = &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a8d969800&gt;()&#10; +    where &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a8d969800&gt; = &lt;PySide6.QtQml.QQmlApplicationEngine(0x55f964b64930) at 0x7f5a8d969800&gt;.rootObjects">qt_app = &lt;PySide6.QtWidgets.QApplication(0x55f964d2ceb0) at 0x7f5a885545c0&gt;
+count = 3
+
+    @pytest.mark.gui
+    @pytest.mark.parametrize("count", [0,2,3,6,8,12])
+    def test_layout_keyboard_and_escape(qt_app,count):
+        c=FakeController(count)
+        if not count: c.state="unavailable"
+&gt;       e=create_engine(c); assert e.rootObjects()
+                            ^^^^^^^^^^^^^^^^^^^^^^
+E       assert []
+E        +  where [] = &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a8d969800&gt;()
+E        +    where &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a8d969800&gt; = &lt;PySide6.QtQml.QQmlApplicationEngine(0x55f964b64930) at 0x7f5a8d969800&gt;.rootObjects
+
+tests/test_gui.py:35: AssertionError</failure></testcase><testcase classname="tests.test_gui" name="test_layout_keyboard_and_escape[6]" time="0.029"><failure message="assert []&#10; +  where [] = &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a883e4c80&gt;()&#10; +    where &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a883e4c80&gt; = &lt;PySide6.QtQml.QQmlApplicationEngine(0x55f964beb520) at 0x7f5a883e4c80&gt;.rootObjects">qt_app = &lt;PySide6.QtWidgets.QApplication(0x55f964d2ceb0) at 0x7f5a885545c0&gt;
+count = 6
+
+    @pytest.mark.gui
+    @pytest.mark.parametrize("count", [0,2,3,6,8,12])
+    def test_layout_keyboard_and_escape(qt_app,count):
+        c=FakeController(count)
+        if not count: c.state="unavailable"
+&gt;       e=create_engine(c); assert e.rootObjects()
+                            ^^^^^^^^^^^^^^^^^^^^^^
+E       assert []
+E        +  where [] = &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a883e4c80&gt;()
+E        +    where &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a883e4c80&gt; = &lt;PySide6.QtQml.QQmlApplicationEngine(0x55f964beb520) at 0x7f5a883e4c80&gt;.rootObjects
+
+tests/test_gui.py:35: AssertionError</failure></testcase><testcase classname="tests.test_gui" name="test_layout_keyboard_and_escape[8]" time="0.030"><failure message="assert []&#10; +  where [] = &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a883d6580&gt;()&#10; +    where &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a883d6580&gt; = &lt;PySide6.QtQml.QQmlApplicationEngine(0x55f964f38420) at 0x7f5a883d6580&gt;.rootObjects">qt_app = &lt;PySide6.QtWidgets.QApplication(0x55f964d2ceb0) at 0x7f5a885545c0&gt;
+count = 8
+
+    @pytest.mark.gui
+    @pytest.mark.parametrize("count", [0,2,3,6,8,12])
+    def test_layout_keyboard_and_escape(qt_app,count):
+        c=FakeController(count)
+        if not count: c.state="unavailable"
+&gt;       e=create_engine(c); assert e.rootObjects()
+                            ^^^^^^^^^^^^^^^^^^^^^^
+E       assert []
+E        +  where [] = &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a883d6580&gt;()
+E        +    where &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a883d6580&gt; = &lt;PySide6.QtQml.QQmlApplicationEngine(0x55f964f38420) at 0x7f5a883d6580&gt;.rootObjects
+
+tests/test_gui.py:35: AssertionError</failure></testcase><testcase classname="tests.test_gui" name="test_layout_keyboard_and_escape[12]" time="0.030"><failure message="assert []&#10; +  where [] = &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a883afe80&gt;()&#10; +    where &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a883afe80&gt; = &lt;PySide6.QtQml.QQmlApplicationEngine(0x55f964fa55e0) at 0x7f5a883afe80&gt;.rootObjects">qt_app = &lt;PySide6.QtWidgets.QApplication(0x55f964d2ceb0) at 0x7f5a885545c0&gt;
+count = 12
+
+    @pytest.mark.gui
+    @pytest.mark.parametrize("count", [0,2,3,6,8,12])
+    def test_layout_keyboard_and_escape(qt_app,count):
+        c=FakeController(count)
+        if not count: c.state="unavailable"
+&gt;       e=create_engine(c); assert e.rootObjects()
+                            ^^^^^^^^^^^^^^^^^^^^^^
+E       assert []
+E        +  where [] = &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a883afe80&gt;()
+E        +    where &lt;built-in method rootObjects of PySide6.QtQml.QQmlApplicationEngine object at 0x7f5a883afe80&gt; = &lt;PySide6.QtQml.QQmlApplicationEngine(0x55f964fa55e0) at 0x7f5a883afe80&gt;.rootObjects
+
+tests/test_gui.py:35: AssertionError</failure></testcase><testcase classname="tests.test_gui" name="test_mouse_theme_and_hidpi_scaling[light]" time="0.030"><failure message="IndexError: list index out of range">qt_app = &lt;PySide6.QtWidgets.QApplication(0x55f964d2ceb0) at 0x7f5a885545c0&gt;
+theme = 'light'
+
+    @pytest.mark.gui
+    @pytest.mark.parametrize("theme",["light","dark"])
+    def test_mouse_theme_and_hidpi_scaling(qt_app,theme):
+        c=FakeController(6); c.prefs.theme=theme
+&gt;       e=create_engine(c); w=e.rootObjects()[0]; w.setProperty("uiScale",0.75); w.show(); QTest.qWait(80)
+                              ^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+tests/test_gui.py:64: IndexError</failure></testcase><testcase classname="tests.test_gui" name="test_mouse_theme_and_hidpi_scaling[dark]" time="0.030"><failure message="IndexError: list index out of range">qt_app = &lt;PySide6.QtWidgets.QApplication(0x55f964d2ceb0) at 0x7f5a885545c0&gt;
+theme = 'dark'
+
+    @pytest.mark.gui
+    @pytest.mark.parametrize("theme",["light","dark"])
+    def test_mouse_theme_and_hidpi_scaling(qt_app,theme):
+        c=FakeController(6); c.prefs.theme=theme
+&gt;       e=create_engine(c); w=e.rootObjects()[0]; w.setProperty("uiScale",0.75); w.show(); QTest.qWait(80)
+                              ^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+tests/test_gui.py:64: IndexError</failure></testcase><testcase classname="tests.test_gui" name="test_real_batch_and_pending_cancellation[False]" time="11.747" /><testcase classname="tests.test_gui" name="test_real_batch_and_pending_cancellation[True]" time="3.596" /><testcase classname="tests.test_gui" name="test_close_on_focus_loss" time="0.028"><failure message="IndexError: list index out of range">qt_app = &lt;PySide6.QtWidgets.QApplication(0x55f964d2ceb0) at 0x7f5a885545c0&gt;
+
+    @pytest.mark.gui
+    def test_close_on_focus_loss(qt_app):
+        from PySide6.QtGui import QWindow
+&gt;       c=FakeController(3);e=create_engine(c);w=e.rootObjects()[0];w.show();w.requestActivate()
+                                                 ^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+tests/test_gui.py:112: IndexError</failure></testcase><testcase classname="tests.test_gui" name="test_real_alpha_and_independent_button_opacity[light]" time="0.027"><failure message="IndexError: list index out of range">qt_app = &lt;PySide6.QtWidgets.QApplication(0x55f964d2ceb0) at 0x7f5a885545c0&gt;
+theme = 'light'
+
+    @pytest.mark.gui
+    @pytest.mark.parametrize('theme',['light','dark'])
+    def test_real_alpha_and_independent_button_opacity(qt_app,theme):
+        c=FakeController(6);c.prefs.theme=theme
+&gt;       e=create_engine(c);w=e.rootObjects()[0];w.show();QTest.qWait(300)
+                             ^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+tests/test_gui.py:127: IndexError</failure></testcase><testcase classname="tests.test_gui" name="test_real_alpha_and_independent_button_opacity[dark]" time="0.028"><failure message="IndexError: list index out of range">qt_app = &lt;PySide6.QtWidgets.QApplication(0x55f964d2ceb0) at 0x7f5a885545c0&gt;
+theme = 'dark'
+
+    @pytest.mark.gui
+    @pytest.mark.parametrize('theme',['light','dark'])
+    def test_real_alpha_and_independent_button_opacity(qt_app,theme):
+        c=FakeController(6);c.prefs.theme=theme
+&gt;       e=create_engine(c);w=e.rootObjects()[0];w.show();QTest.qWait(300)
+                             ^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+tests/test_gui.py:127: IndexError</failure></testcase></testsuite></testsuites>

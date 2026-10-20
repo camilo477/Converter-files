@@ -1,0 +1,294 @@
+{
+  "platform": "wayland",
+  "cases": [
+    {
+      "action": "pdf-merge",
+      "case": "merge",
+      "records": [
+        {
+          "name": "2 archivos",
+          "ok": true,
+          "location": "/mnt/Fedora-Z/converter-files/examples/v21/documentos_unidos.pdf",
+          "detail": "PDF unido correctamente \u00b7 6 p\u00e1ginas",
+          "stats": {},
+          "outputs": 1
+        }
+      ],
+      "original_sha256": {
+        "/mnt/Fedora-Z/converter-files/examples/v21/Documento 1.pdf": "89d7df712ebb1fa9ccebee22c627eca4a87373f650f0169031eda62bc7a2f1cb",
+        "/mnt/Fedora-Z/converter-files/examples/v21/Documento 2.pdf": "af7ab3bf364670e920378aebf25e53cc2c50f240045c9a857c44a40d33d29f03"
+      },
+      "originals_unchanged": true,
+      "notification_accepted": true,
+      "radial_mouse_selection": true,
+      "execute_mouse_selection": true
+    },
+    {
+      "action": "pdf-split",
+      "case": "split",
+      "records": [
+        {
+          "name": "Documento 1.pdf",
+          "ok": true,
+          "location": "/mnt/Fedora-Z/converter-files/examples/v21/Documento 1_partes",
+          "detail": "Se crearon 2 documentos \u00b7 4 p\u00e1ginas",
+          "stats": {},
+          "outputs": 2
+        }
+      ],
+      "original_sha256": {
+        "/mnt/Fedora-Z/converter-files/examples/v21/Documento 1.pdf": "89d7df712ebb1fa9ccebee22c627eca4a87373f650f0169031eda62bc7a2f1cb"
+      },
+      "originals_unchanged": true,
+      "notification_accepted": true,
+      "radial_mouse_selection": true,
+      "execute_mouse_selection": true
+    },
+    {
+      "action": "optimize",
+      "case": "optimize-pdf",
+      "records": [
+        {
+          "name": "Documento 1.pdf",
+          "ok": true,
+          "location": "/mnt/Fedora-Z/converter-files/examples/v21/Documento 1_optimizado.pdf",
+          "detail": "2,709,355 \u2192 1,194,416 bytes \u00b7 ahorro 55.92 % \u00b7 Sin p\u00e9rdida",
+          "stats": {
+            "original_bytes": 2709355,
+            "result_bytes": 1194416,
+            "saving_percent": 55.92,
+            "level": "lossless"
+          },
+          "outputs": 1
+        }
+      ],
+      "original_sha256": {
+        "/mnt/Fedora-Z/converter-files/examples/v21/Documento 1.pdf": "89d7df712ebb1fa9ccebee22c627eca4a87373f650f0169031eda62bc7a2f1cb"
+      },
+      "originals_unchanged": true,
+      "notification_accepted": true,
+      "radial_mouse_selection": true,
+      "execute_mouse_selection": true
+    },
+    {
+      "action": "optimize",
+      "case": "optimize-image",
+      "records": [
+        {
+          "name": "Imagen 1.png",
+          "ok": true,
+          "location": "/mnt/Fedora-Z/converter-files/examples/v21/Imagen 1_optimizado.png",
+          "detail": "1,383,435 \u2192 2,110 bytes \u00b7 ahorro 99.85 % \u00b7 Sin p\u00e9rdida",
+          "stats": {
+            "original_bytes": 1383435,
+            "result_bytes": 2110,
+            "saving_percent": 99.85,
+            "level": "lossless"
+          },
+          "outputs": 1
+        }
+      ],
+      "original_sha256": {
+        "/mnt/Fedora-Z/converter-files/examples/v21/Imagen 1.png": "166c617d7fb2388fd0912c00d2d4fa0ec671a36b044a08691b5fd914e49be29a"
+      },
+      "originals_unchanged": true,
+      "notification_accepted": true,
+      "radial_mouse_selection": true,
+      "execute_mouse_selection": true
+    },
+    {
+      "action": "archive",
+      "case": "zip",
+      "records": [
+        {
+          "name": "2 archivos",
+          "ok": true,
+          "location": "/mnt/Fedora-Z/converter-files/examples/v21/archivos.zip",
+          "detail": "Archivo ZIP creado \u00b7 2 archivos verificados",
+          "stats": {
+            "format": "zip",
+            "files": 2,
+            "result_bytes": 1163
+          },
+          "outputs": 1
+        }
+      ],
+      "original_sha256": {
+        "/mnt/Fedora-Z/converter-files/examples/v21/Foto con EXIF.jpg": "fdb1bd577d26fede116d6fea4ef9d4426c81ccab9b414875677a26562a691b6a"
+      },
+      "originals_unchanged": true,
+      "notification_accepted": true,
+      "radial_mouse_selection": true,
+      "execute_mouse_selection": true
+    },
+    {
+      "action": "archive",
+      "case": "7z",
+      "records": [
+        {
+          "name": "2 archivos",
+          "ok": true,
+          "location": "/mnt/Fedora-Z/converter-files/examples/v21/archivos.7z",
+          "detail": "Archivo 7Z creado \u00b7 2 archivos verificados",
+          "stats": {
+            "format": "7z",
+            "files": 2,
+            "result_bytes": 785
+          },
+          "outputs": 1
+        }
+      ],
+      "original_sha256": {
+        "/mnt/Fedora-Z/converter-files/examples/v21/Foto con EXIF.jpg": "fdb1bd577d26fede116d6fea4ef9d4426c81ccab9b414875677a26562a691b6a"
+      },
+      "originals_unchanged": true,
+      "notification_accepted": true,
+      "radial_mouse_selection": true,
+      "execute_mouse_selection": true
+    },
+    {
+      "action": "crop",
+      "case": "crop",
+      "records": [
+        {
+          "name": "Imagen 1.png",
+          "ok": true,
+          "location": "/mnt/Fedora-Z/converter-files/examples/v21/Imagen 1_recortada.png",
+          "detail": "Imagen recortada \u00b7 400 \u00d7 300",
+          "stats": {},
+          "outputs": 1
+        }
+      ],
+      "original_sha256": {
+        "/mnt/Fedora-Z/converter-files/examples/v21/Imagen 1.png": "166c617d7fb2388fd0912c00d2d4fa0ec671a36b044a08691b5fd914e49be29a"
+      },
+      "originals_unchanged": true,
+      "notification_accepted": true,
+      "radial_mouse_selection": true,
+      "execute_mouse_selection": true
+    },
+    {
+      "action": "resize",
+      "case": "resize",
+      "records": [
+        {
+          "name": "Imagen 1.png",
+          "ok": true,
+          "location": "/mnt/Fedora-Z/converter-files/examples/v21/Imagen 1_360x240.png",
+          "detail": "Imagen redimensionada \u00b7 360 \u00d7 240 \u00b7 1 cuadro(s)",
+          "stats": {},
+          "outputs": 1
+        },
+        {
+          "name": "Imagen 2.png",
+          "ok": true,
+          "location": "/mnt/Fedora-Z/converter-files/examples/v21/Imagen 2_400x240.png",
+          "detail": "Imagen redimensionada \u00b7 400 \u00d7 240 \u00b7 1 cuadro(s)",
+          "stats": {},
+          "outputs": 1
+        },
+        {
+          "name": "Imagen 3.png",
+          "ok": true,
+          "location": "/mnt/Fedora-Z/converter-files/examples/v21/Imagen 3_440x240.png",
+          "detail": "Imagen redimensionada \u00b7 440 \u00d7 240 \u00b7 1 cuadro(s)",
+          "stats": {},
+          "outputs": 1
+        }
+      ],
+      "original_sha256": {
+        "/mnt/Fedora-Z/converter-files/examples/v21/Imagen 1.png": "166c617d7fb2388fd0912c00d2d4fa0ec671a36b044a08691b5fd914e49be29a",
+        "/mnt/Fedora-Z/converter-files/examples/v21/Imagen 2.png": "74208ead87666d82138d7d52843f63ac3a156f7b5e971d15e471228ce01a78ce",
+        "/mnt/Fedora-Z/converter-files/examples/v21/Imagen 3.png": "f95590b18231d2caabfdad2a3b554708dbb250f9bb1dad0dd53fa8718b1e0b3e"
+      },
+      "originals_unchanged": true,
+      "notification_accepted": true,
+      "radial_mouse_selection": true,
+      "execute_mouse_selection": true
+    },
+    {
+      "action": "images-pdf",
+      "case": "images-pdf",
+      "records": [
+        {
+          "name": "3 archivos",
+          "ok": true,
+          "location": "/mnt/Fedora-Z/converter-files/examples/v21/imagenes.pdf",
+          "detail": "PDF creado \u00b7 3 im\u00e1genes en el orden elegido",
+          "stats": {},
+          "outputs": 1
+        }
+      ],
+      "original_sha256": {
+        "/mnt/Fedora-Z/converter-files/examples/v21/Imagen 1.png": "166c617d7fb2388fd0912c00d2d4fa0ec671a36b044a08691b5fd914e49be29a",
+        "/mnt/Fedora-Z/converter-files/examples/v21/Imagen 2.png": "74208ead87666d82138d7d52843f63ac3a156f7b5e971d15e471228ce01a78ce",
+        "/mnt/Fedora-Z/converter-files/examples/v21/Imagen 3.png": "f95590b18231d2caabfdad2a3b554708dbb250f9bb1dad0dd53fa8718b1e0b3e"
+      },
+      "originals_unchanged": true,
+      "notification_accepted": true,
+      "radial_mouse_selection": true,
+      "execute_mouse_selection": true
+    },
+    {
+      "action": "metadata",
+      "case": "metadata-jpg",
+      "records": [
+        {
+          "name": "Foto con EXIF.jpg",
+          "ok": true,
+          "location": "/mnt/Fedora-Z/converter-files/examples/v21/Foto con EXIF_sin_metadatos.jpg",
+          "detail": "Copia limpia \u00b7 comprobados: EXIF personal/GPS, XMP, Comentarios y campos textuales",
+          "stats": {
+            "verified_categories": [
+              "EXIF personal/GPS",
+              "XMP",
+              "Comentarios y campos textuales"
+            ],
+            "mode": "standard",
+            "retained": "ICC; DPI en modo est\u00e1ndar. En PDF se conserva contenido visible, formularios, enlaces y OCR."
+          },
+          "outputs": 1
+        }
+      ],
+      "original_sha256": {
+        "/mnt/Fedora-Z/converter-files/examples/v21/Foto con EXIF.jpg": "fdb1bd577d26fede116d6fea4ef9d4426c81ccab9b414875677a26562a691b6a"
+      },
+      "originals_unchanged": true,
+      "notification_accepted": true,
+      "radial_mouse_selection": true,
+      "execute_mouse_selection": true
+    },
+    {
+      "action": "metadata",
+      "case": "metadata-pdf",
+      "records": [
+        {
+          "name": "Documento 1.pdf",
+          "ok": true,
+          "location": "/mnt/Fedora-Z/converter-files/examples/v21/Documento 1_sin_metadatos.pdf",
+          "detail": "Copia limpia \u00b7 comprobados: Campos del documento, XMP del documento, Adjuntos, XMP de objetos, Autor y fechas de anotaciones",
+          "stats": {
+            "verified_categories": [
+              "Campos del documento",
+              "XMP del documento",
+              "Adjuntos",
+              "XMP de objetos",
+              "Autor y fechas de anotaciones"
+            ],
+            "mode": "deep",
+            "retained": "ICC; DPI en modo est\u00e1ndar. En PDF se conserva contenido visible, formularios, enlaces y OCR."
+          },
+          "outputs": 1
+        }
+      ],
+      "original_sha256": {
+        "/mnt/Fedora-Z/converter-files/examples/v21/Documento 1.pdf": "89d7df712ebb1fa9ccebee22c627eca4a87373f650f0169031eda62bc7a2f1cb"
+      },
+      "originals_unchanged": true,
+      "notification_accepted": true,
+      "radial_mouse_selection": true,
+      "execute_mouse_selection": true
+    }
+  ],
+  "dolphin_context_menu": "independent; not implied by this test"
+}

@@ -1,0 +1,154 @@
+[
+  {
+    "file": "src/convertix/__init__.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/gui.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/worker.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/cli.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/qml/OrderEditor.qml",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/qml/ResizeEditor.qml",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/qml/PagePicker.qml",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/qml/CropEditor.qml",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/qml/Main.qml",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/qml/ToolWindow.qml",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/tools/jpeg_metadata.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/tools/archive.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/tools/inspection.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/tools/metadata.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/tools/staging.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/tools/__init__.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/tools/image_ops.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/tools/gui.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/tools/images_pdf.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/tools/catalog.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/tools/pdf_ops.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/tools/dispatch.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/tools/service.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/tools/rpc.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/tools/options.py",
+    "change": "added"
+  },
+  {
+    "file": "scripts/tools_desktop_smoke.py",
+    "change": "added"
+  },
+  {
+    "file": "scripts/dolphin_smoke.py",
+    "change": "modified"
+  },
+  {
+    "file": "scripts/make_v21_examples.py",
+    "change": "added"
+  },
+  {
+    "file": "scripts/install.py",
+    "change": "modified"
+  },
+  {
+    "file": "tests/test_tools_pdf.py",
+    "change": "added"
+  },
+  {
+    "file": "tests/test_tools_images.py",
+    "change": "added"
+  },
+  {
+    "file": "tests/test_tools_gui.py",
+    "change": "added"
+  },
+  {
+    "file": "tests/test_tools_safety.py",
+    "change": "added"
+  },
+  {
+    "file": "pyproject.toml",
+    "change": "modified"
+  },
+  {
+    "file": "README.md",
+    "change": "modified"
+  },
+  {
+    "file": "docs/VERIFICATION.md",
+    "change": "modified"
+  },
+  {
+    "file": "docs/VERIFICATION-v2.md",
+    "change": "added"
+  },
+  {
+    "file": ".gitattributes",
+    "change": "added"
+  }
+]

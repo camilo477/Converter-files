@@ -1,0 +1,8 @@
+{
+  "reviewed_records": 31,
+  "historical_job_failed_records": 2,
+  "current_task_job_failed_records": 1,
+  "current_task_record_context": "The first preview-only screenshot run was cancelled by a compositor focus transition. Eleven installed functional flows had already passed; screenshot capture was corrected separately.",
+  "formatter_has_traceback": false,
+  "logs_modified": false
+}

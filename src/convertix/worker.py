@@ -18,6 +18,11 @@ def main() -> int:
     try:
         prefs = Preferences.from_dict(data["prefs"])
         restrict_worker(prefs.timeout)
+        if "action" in data:
+            from .tools.dispatch import execute
+            payload = {"ok": True, **execute(data, request.parent)}
+            (request.parent/"result.json").write_text(json.dumps(payload, ensure_ascii=False))
+            return 0
         source = detect(Path(data["source"]))
         target = data["target"]
         if target == "__probe__":

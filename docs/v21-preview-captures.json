@@ -1,0 +1,50 @@
+{
+  "platform": "wayland",
+  "cases": [
+    {
+      "case": "merge",
+      "captured": true
+    },
+    {
+      "case": "split",
+      "captured": true
+    },
+    {
+      "case": "optimize-pdf",
+      "captured": true
+    },
+    {
+      "case": "optimize-image",
+      "captured": true
+    },
+    {
+      "case": "zip",
+      "captured": true
+    },
+    {
+      "case": "7z",
+      "captured": true
+    },
+    {
+      "case": "crop",
+      "captured": true
+    },
+    {
+      "case": "resize",
+      "captured": true
+    },
+    {
+      "case": "images-pdf",
+      "captured": true
+    },
+    {
+      "case": "metadata-jpg",
+      "captured": true
+    },
+    {
+      "case": "metadata-pdf",
+      "captured": true
+    }
+  ],
+  "dolphin_context_menu": "independent; not implied by this test"
+}

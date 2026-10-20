@@ -85,6 +85,19 @@ class Controller(QObject):
         self.cancel_event = threading.Event()
         self.job = None
         self._jobs = []
+        self.conversion_options = []
+        self.tool_options = []
+        self.category = "convert"
+        from .tools.gui import ToolController
+        self.tool = ToolController(self)
+
+    @Property(QObject, constant=True)
+    def tooling(self):
+        return self.tool
+
+    @Property(str, notify=changed)
+    def activeCategory(self):
+        return self.category
 
     @Property(str, notify=changed)
     def status(self):
@@ -123,12 +136,12 @@ class Controller(QObject):
     def preferences(self):
         return asdict(self.prefs)
 
-    def launch(self, fn, success):
+    def launch(self, fn, success, failure=None):
         job = Job(fn, self)
         self.job = job
         self._jobs.append(job)
         job.ready.connect(success)
-        job.failed.connect(self.fail)
+        job.failed.connect(failure or self.fail)
         job.progress.connect(self.progress)
         job.finished.connect(lambda: self._cleanup(job))
         job.start()
@@ -155,7 +168,13 @@ class Controller(QObject):
                 if self.cancel_event.is_set():
                     raise Cancelled("Comprobación cancelada.")
                 progress(f"Comprobando {i}/{len(self.files)} · {path.name}")
-                sources.append(probe(path, self.prefs, self.cancel_event))
+                try:
+                    sources.append(probe(path, self.prefs, self.cancel_event))
+                except ConversionError:
+                    from .models import Source
+                    if path.is_symlink() or not (path.is_file() or path.is_dir()):
+                        raise
+                    sources.append(Source(path, "folder" if path.is_dir() else "file", "application/octet-stream"))
             return sources, common_routes(sources, self.prefs)
         self.launch(work, self.scanned)
 
@@ -163,21 +182,38 @@ class Controller(QObject):
     def scanned(self, payload):
         self.sources, choices = payload
         notes = list(dict.fromkeys(w for s in self.sources for w in s.warnings))
-        self.options = [{"target": r.target, "label": "PDF + OCR" if r.target == "pdf-ocr" else r.target.upper(), "icon": ICON.get(r.target, "image-x-generic"),
+        self.conversion_options = [{"target": r.target, "label": "PDF + OCR" if r.target == "pdf-ocr" else r.target.upper(), "icon": ICON.get(r.target, "image-x-generic"),
                          "accent": COLORS.get(r.target, "#aa98d7"), "hint": " ".join([FORMAT_NAMES.get(r.target, r.target.upper()), r.description, r.warning] + notes)}
                         for r in choices]
-        self.state = "ready" if choices else "unavailable"
-        self.message = "Elige el formato de destino" if choices else "No hay conversiones disponibles para toda la selección."
+        from .tools.catalog import available
+        self.tool_options = available(self.sources)
+        if not choices:
+            self.category = "modify"
+        self.options = self.tool_options if self.category == "modify" else self.conversion_options
+        self.state = "ready" if self.options else "unavailable"
+        self.message = "Elige una herramienta" if self.category == "modify" else "Elige el formato de destino"
+        self.changed.emit()
+
+    @Slot(str)
+    def setCategory(self, category):
+        if self.state != "ready" or category not in ("convert", "modify"):
+            return
+        self.category = category
+        self.options = self.conversion_options if category == "convert" else self.tool_options
         self.changed.emit()
 
     @Slot(str)
     def progress(self, message):
         self.message = message
+        self.tool.update_progress(message)
         self.changed.emit()
 
     @Slot(str)
     def start(self, target):
-        if self.state != "ready" or target not in {o["target"] for o in self.options}:
+        if self.state != "ready" or self.tool.state != "closed" or target not in {o["target"] for o in self.options}:
+            return
+        if target.startswith("tool:"):
+            self.tool.open(target[5:], self.files)
             return
         self.state = "processing"
         self.message = f"Preparando {target.upper()}…"
@@ -227,6 +263,7 @@ class Controller(QObject):
     @Slot()
     def cancel(self):
         self.cancel_event.set()
+        self.tool.cancel()
         self.message = "Cancelando; se conservan los resultados ya completados…"
         self.changed.emit()
 
@@ -286,6 +323,7 @@ def create_engine(controller: Controller):
     engine = QQmlApplicationEngine()
     engine.addImageProvider("theme", Icons())
     engine.rootContext().setContextProperty("backend", controller)
+    engine.rootContext().setContextProperty("tool", controller.tool)
     engine.load(QUrl.fromLocalFile(str(Path(__file__).parent / "qml/Main.qml")))
     return engine
 

@@ -1,179 +1,174 @@
-# Convertix 2.0 — Verificación del 19–20 de octubre de 2026
+# Convertix 2.1 — Verificación del 20 de octubre de 2026
 
-## Resultado y alcance
+## Resultado
 
-Se amplió el proyecto existente y se actualizó la instalación de usuario en `~/.local` a **2.0.0**.
-No se creó otra aplicación, no se modificaron originales ni preferencias existentes y no se hicieron commits ni push.
-La carpeta `.git` está vacía y Git no la reconoce como repositorio; no se inventa un estado de ramas o cambios Git.
-El [informe anterior](VERIFICATION-v1.md) y sus capturas se conservaron como referencia.
+Se amplió la aplicación existente y se actualizó la instalación en `~/.local` a **2.1.0**.
+Las conversiones de 2.0, OCR, preferencias, transparencia, notificaciones, teclado y ratón se conservaron.
+No se instalaron paquetes nuevos del sistema ni bibliotecas Python para esta ampliación.
 
-**La aceptación de extremo a extremo desde el clic derecho de Dolphin sigue pendiente de intervención manual.**
-Las pruebas de la ventana radial instalada son independientes de esa aceptación y no se usan para darla por aprobada.
+**El flujo completo desde el clic derecho de Dolphin sigue pendiente de comprobación física.**
+No se considera aprobado por haber probado las ventanas de Convertix con eventos Qt.
 
-## Pruebas ejecutadas
+## Línea base y pruebas
 
-| Batería | Resultado | Evidencia |
+Antes de modificar código se leyeron README, el informe 2.0, motores, registro, QML, instalador, trabajador,
+detección y publicación. En la inspección inicial Git no estaba disponible en el entorno de ejecución.
+En la revisión de publicación el repositorio está disponible en `main`, con remoto `origin` en
+`git@github.com:camilo477/Converter-files.git`. Se conservó una copia del código previo en `/tmp/convertix-v20-before-v21.tar.gz`.
+El [informe 2.0](VERIFICATION-v2.md), [informe 1](VERIFICATION-v1.md) y sus evidencias permanecen disponibles.
+
+| Comprobación | Resultado | Evidencia |
 |---|---|---|
-| Antes de modificar código: originales y matriz reportada de 110 pares | **58 aprobadas**, sin omisiones | [JUnit de línea base](v2-baseline.xml) |
-| Versión final: regresión y pruebas nuevas | **99 aprobadas**, sin errores ni omisiones | [JUnit completo](v2-full-tests.xml) |
-| Qt Quick en Wayland real | **12 aprobadas, 1 omitida** | [JUnit Wayland](v2-wayland.xml) |
-| Qt Quick con backend X11 bajo XWayland | **13 aprobadas** | [JUnit XWayland](v2-xwayland.xml) |
-| Ajuste final de contraste de la paginación: distribución, teclado, Escape y alfa | **8 aprobadas** | [JUnit visual final](v2-final-visual.xml) |
-| Instalación real: seis flujos con selección mediante ratón y notificaciones KDE | **Aprobados** | [Resultado de escritorio](v2-desktop-smoke-result.json) |
-| Dolphin aislado bajo XWayland | No se pudo abrir el menú contextual mediante automatización | [Resultado, sin éxito declarado](v2-dolphin-result.json) |
+| Línea base, antes de editar | **99 aprobadas**, sin omisiones | [JUnit inicial](v21-baseline.xml) |
+| Regresión y nuevas herramientas | **201 aprobadas**, sin errores ni omisiones | [JUnit completo](v21-full-tests.xml) |
+| Qt Quick en Wayland real | **32 aprobadas, 1 omitida** | [JUnit Wayland](v21-wayland.xml) |
+| Qt Quick X11 bajo XWayland | **33 aprobadas**, sin omisiones | [JUnit XWayland](v21-xwayland.xml) |
+| Corrección final de contraste y alfa | **3 aprobadas** | [JUnit de contraste](v21-final-palette.xml) |
+| Seguridad final de archivos/carpetas | **18 aprobadas**, sin omisiones | [JUnit de seguridad final](v21-final-safety.xml) |
+| Recorte final: 1:1, 16:9 y píxeles originales 8K | **3 aprobadas**, bajo Wayland | [JUnit de recorte final](v21-final-crop.xml) |
+| Firma PDF criptográfica sintética | **1 aprobada** | [JUnit firma](v21-signed-pdf.xml) |
+| Aplicación instalada: 11 flujos con ratón | **11 aprobados** | [JSON de resultados](v21-desktop-tools.json) |
+| Dolphin temporal, menú contextual real | No se pudo abrir mediante automatización | [Resultado exacto](v21-dolphin-result.json) |
 
-Las baterías gráficas repiten casos y no se suman a las 99 como casos distintos. La omisión Wayland se debe
-a que KWin no concedió activar la segunda ventana para simular pérdida de foco. La misma prueba pasó en XWayland
-y sin pantalla; falta comprobar el clic físico en otra aplicación bajo Wayland.
+Se verificaron **205 casos distintos**: 201 en la regresión completa, uno adicional de profundidad de carpetas y tres de recorte final. [Resumen sin duplicar casos](v21-test-summary.json).
 
-Se conservan los 58 casos originales. Sus expectativas se ajustaron únicamente donde cambia deliberadamente
-el comportamiento: versión instalada 2.0.0 y GIF → WebP como una animación con todos sus cuadros, en lugar de
-una carpeta de fotogramas. No se eliminaron pruebas para esconder errores.
+Las baterías gráficas y focalizadas repiten casos; no se suman como pruebas distintas a la regresión.
+La omisión Wayland corresponde a la prueba de pérdida de foco: KWin no concede activar otra ventana sin un gesto físico.
+XWayland es un backend X11 dentro de Wayland; no se afirma haber probado una sesión X11 nativa.
 
-También se recorren las rutas OCR completas hacia Markdown, HTML, ODT y RTF; se corrigió la clasificación de
-GlyphLessFont para que su carácter monoespaciado no convierta todo el texto reconocido en bloques de código.
-Las tablas con OCR previo se extraen sin necesitar otro reconocimiento.
+Se conservan los 99 casos anteriores. La revisión final de seguridad añade un caso de carpetas de más de 64 niveles: se rechaza la selección y se comprueba la limpieza de los temporales, sin borrar originales. Se verifica en la batería final de seguridad; no se suma esa batería entera como casos distintos. Las nuevas pruebas comprueban, con archivos sintéticos:
 
-Las 41 pruebas adicionales verifican texto editable, tablas, valores/códigos, imágenes separadas, encabezados,
-código, enlaces relativos, dos columnas, saltos/secciones, OCR español/inglés juntos y por separado, páginas
-rotadas, portada vacía, páginas mixtas y cabecera digital con cuerpo escaneado, OCR previo sin reprocesar,
-PDF sin texto, cancelación, archivos originales, limpieza de temporales, preferencias preservadas, alfa real,
-animaciones con tiempos/bucles/transparencia y formatos Office antiguos con contenido conservado tras reconversión.
+- Unión de dos/tres PDFs, orden invertido, tamaños/orientaciones, marcadores y anotaciones; originales iguales por SHA-256.
+- Cuatro modos de división, rangos no consecutivos y orden de extracción, intervalos, rangos inválidos, archivos vacíos,
+  corruptos y cifrados; las partes mantienen dimensiones y texto seleccionable y se publican como conjunto.
+- Tres niveles de optimización PDF, texto/páginas preservados y comparación visual exacta en el modo sin pérdida.
+  El ahorro se contrasta con tamaños reales; si no se reduce, se rechaza salvo elección explícita.
+- JPG/PNG/WebP optimizados, recorte exacto con alfa y orientación EXIF, coordenadas inválidas, proporciones,
+  dimensiones personalizadas y lotes. GIF/WebP animados y APNG con imagen de portada mantienen cuadros, tiempos y bucles.
+- ZIP/7z, archivos de distintas carpetas con nombres repetidos, Unicode, espacios y carpetas vacías. ZIP se compara
+  por SHA-256 al leer sus miembros y se valida CRC; 7z pasa su verificación de integridad.
+- Cancelación durante copia, compresión y pendientes; rechazo de enlaces simbólicos/FIFOs, nombres peligrosos,
+  opciones booleanas ambiguas, cambios desde la vista previa, permisos y publicación concurrente sin colisiones.
+- Imágenes a PDF: una/varias, orden, distintas resoluciones, transparencia, A4, Carta, tamaño de imagen y personalizado.
+- EXIF/GPS, campos textuales PNG, metadatos PDF y XMP, adjuntos seleccionados, autor/fechas de anotaciones y conservación visual.
+  JPEG sin giro se limpia sin recomprimir, incluido JPEG progresivo.
+- Las ventanas QML en ambos temas, categorías, selección con ratón, arrastre para reordenar, páginas y carga diferida,
+  recorte visual que coincide con la región exportada, transparencia y cambio de tema durante la ejecución.
 
-En XLS se comprueba el rechazo de datos más allá de 65 536 filas/256 columnas. En PDF → XLSX se verifica una
-hoja por tabla, dos tablas independientes, encabezados, números, identificadores `0012` y texto `=2+2` que permanece
-como cadena y no se convierte en fórmula. Si no hay tablas no aparece XLSX; no se genera una hoja vacía de éxito.
+La prueba de firma genera un certificado autofirmado y una firma CMS desechables en el directorio temporal de pytest.
+`pdfsig -nocert` verifica la integridad criptográfica antes de la operación; no valida una identidad de confianza.
+La operación se bloquea sin aceptar el aviso y la copia reescrita deja de validar la firma original. El original no cambia.
+No se utilizaron certificados ni documentos personales.
 
-## Flujos comprobados en la aplicación instalada
+## Aplicación instalada e inspección visual
 
-Se ejecutó `scripts/desktop_smoke.py` con el Python aislado de la instalación y `QT_QPA_PLATFORM=wayland`:
+`tools_desktop_smoke.py` se ejecutó con el Python aislado instalado y `QT_QPA_PLATFORM=wayland`.
+Se eligió la herramienta mediante clic en el botón radial y se pulsó el botón de ejecución QML:
 
-1. DOCX → PDF.
-2. PDF digital con tabla → DOCX editable.
-3. PDF escaneado → DOCX editable mediante OCR.
-4. PDF escaneado → Markdown con encabezados y tabla.
-5. PDF digital con tabla → XLSX con valores extraídos.
-6. PDF mixto con portada vacía → PDF con texto seleccionable.
+1. Unir dos PDFs: seis páginas.
+2. Dividir un PDF en dos partes mediante rangos.
+3. Optimizar PDF sin pérdida: 2 709 355 → 1 194 416 bytes, ahorro **55,92 %** en esa muestra.
+4. Optimizar PNG sin pérdida: 1 383 435 → 2 110 bytes, ahorro **99,85 %** en esa imagen sintética de colores planos.
+5. Crear ZIP de carpeta y archivo.
+6. Crear 7z de carpeta y archivo.
+7. Recortar una región de 400 × 300 píxeles.
+8. Redimensionar tres imágenes al 50 %.
+9. Crear un PDF ordenado de tres imágenes.
+10. Limpiar EXIF/GPS de JPG.
+11. Limpiar PDF profundamente con eliminación explícita de adjuntos.
 
-En los seis casos se eligió el destino mediante eventos de ratón sobre el control radial real, se validó el
-archivo, el SHA-256 del original permaneció idéntico y `notify-send` obtuvo aceptación del servicio KDE.
-El registro JSON contiene rutas, hashes y resultado de cada notificación. Los DOCX se abrieron con python-docx
-y contienen párrafos con texto reconocido. Las pruebas de OCR comparan además los píxeles renderizados del PDF
-buscable con el original: la capa textual añadida no cambió la apariencia de las muestras.
+Los porcentajes anteriores son resultados de muestras, no promesas de reducción para otros archivos.
+En los once flujos todos los registros fueron correctos, los originales mantuvieron SHA-256 y KDE aceptó las notificaciones.
+En PDF/recorte se verificaron además páginas/dimensiones. Las pruebas automatizadas inspeccionan el contenido, no solo la existencia del resultado.
 
-Las capturas son [DOCX → PDF](v2-completed-docx-to-pdf.png), [PDF → DOCX](v2-completed-pdf-to-docx.png),
-[escaneado → DOCX](v2-completed-ocr-to-docx.png), [escaneado → Markdown](v2-completed-ocr-to-markdown.png),
-[PDF → XLSX](v2-completed-pdf-to-xlsx.png) y [PDF buscable](v2-completed-searchable-pdf.png).
-Estos resultados usan archivos sintéticos; no prueban precisión OCR universal ni fidelidad perfecta con documentos arbitrarios.
+Se inspeccionaron capturas reales de [unión](v21-tool-merge.png), [división](v21-tool-split.png),
+[recorte](v21-tool-crop.png), [redimensionado](v21-tool-resize.png), [imágenes a PDF](v21-tool-images-pdf.png),
+[limpieza PDF](v21-tool-metadata-pdf.png), [radial oscuro](v21-radial-dark.png) y [radial claro](v21-radial-light.png).
+Las capturas radiales conservan alfa: fuera de la decoración el fondo es transparente; no hay atenuación global de botones.
+El fondo decorativo conserva el 85 % de transparencia predeterminado y las preferencias anteriores no se reescribieron.
 
-## Rediseño visual
+La inspección encontró un fallo de contraste en el tema claro tras cambiar de tema: copiar el objeto de paleta no
+actualizaba los roles de la ventana secundaria. Se corrigió vinculando los roles Qt y los colores Kirigami del árbol visual (el estilo `org.kde.desktop` usa estos últimos), con una prueba que comprueba
+texto oscuro sobre claro y claro sobre oscuro. También se hicieron explícitos los glifos de preferencias/cierre.
+La última captura se actualiza con `--preview-only`, sin sustituir el JSON de los once flujos funcionales.
 
-Se conservaron el componente radial, animaciones, teclado, ratón, Escape, cierre, cancelación y paginación.
-Se quitó el panel rectangular de fondo del estado radial y se solicitó explícitamente un buffer alfa Qt Quick.
-Los demás estados conservan una tarjeta de lectura y controles de resultados, sin alterar la transparencia de los botones radiales.
+Durante el desarrollo también se corrigieron un argumento DPI entero requerido por MuPDF, el borrado explícito de
+fechas/autor en anotaciones, conservación de RGB bajo alfa en WebP sin pérdida, IFD de la muestra TIFF y el cálculo de
+la posición de soltar una fila. No se relajaron las expectativas para esconder esos errores. Los informes provisionales
+se identifican con `initial`; una primera ejecución XWayland falló una medición de alfa durante una transición de ventana,
+y la repetición aislada aprobó los 32 casos conservando la misma prueba; la comprobación final aprobó 33, incluyendo cambio de tema.
 
-Inspección del resultado renderizado, en claro y oscuro:
+## Arquitectura, límites y garantías
 
-- Regiones vacías fuera del círculo: alfa **0/255**.
-- Fondo circular al 85 % de transparencia: alfa **38/255**, aproximadamente 15 % de opacidad.
-- Botones: alfa **249/255**, aproximadamente 98 % de opacidad; iconos y texto no se atenúan globalmente.
-- El ajuste 100 % elimina la decoración y 0 % la hace opaca; las pruebas comprueban sus píxeles por separado.
-- Dos, tres, seis, ocho y doce opciones sin superposición. La paginación se trasladó al pie para no tapar la opción superior.
+Los nuevos módulos están en `src/convertix/tools/`: catálogo explícito, controlador, inspección/miniaturas, PDF,
+imágenes, composición PDF, metadatos, JPEG, archivos comprimidos, opciones, copias seguras, RPC y servicio.
+La interfaz se divide en `ToolWindow.qml`, `OrderEditor.qml`, `PagePicker.qml`, `CropEditor.qml` y `ResizeEditor.qml`.
+Se reutilizan trabajador aislado, límites de recursos/red, preferencias, notificaciones, `publish` y `renameat2(RENAME_NOREPLACE)`.
+[Lista de archivos añadidos/modificados](v21-changed-files.json).
 
-Se compararon visualmente [el menú anterior](radial-dark.png), [el nuevo oscuro](v2-radial-dark.png) y
-[el nuevo claro](v2-radial-light.png). Las nuevas capturas son PNG con alfa real; su apariencia en un visor depende
-del fondo que utilice ese visor. Las pruebas nativas Wayland y XWayland también verifican el canal alfa del buffer.
-No se promete paso de clics hacia Dolphin: las áreas vacías son una zona de cierre dentro de la ventana.
+- La carpeta de destino se muestra antes de ejecutar: por defecto, carpeta del primer archivo de la selección inicial.
+  Reordenar no la cambia. El usuario puede elegir otra; los lotes también utilizan la carpeta visible.
+- Las entradas se copian desde descriptores sin seguir enlaces finales ni enlaces dentro de las carpetas, con comprobación de cambios durante la copia.
+  Las imágenes editadas se comparan con su identidad/tamaño/fecha de la vista previa, también al abrir el descriptor.
+- Las divisiones múltiples se publican mediante un único cambio de nombre de una carpeta completa. Un fallo intermedio
+  impide publicar ese conjunto. Lotes de operaciones independientes conservan resultados ya completados y muestran los errores/pendientes.
+- No hay sobrescritura ni modificación del original. Los permisos resultantes no amplían los de las entradas.
+  Los temporales están en el mismo sistema de archivos; se limpian al fallar/cancelar y se termina el grupo de procesos.
+- Los límites de edición son 512 MiB por archivo, 500 páginas/cuadros y 150 millones de píxeles. Archivos comprimidos:
+  2 GiB sin comprimir, 10 000 entradas y 64 niveles, sin enlaces, dispositivos ni FIFOs. No se crea el archivo dentro de una carpeta incluida.
+- Se mantienen tiempos y memoria acotados; las miniaturas se solicitan según las celdas visibles y se almacenan temporalmente.
+  No se renderiza un PDF completo para mostrar su selector. El bloqueo de red no es un sandbox completo del sistema de archivos.
+- PDF conserva páginas sin rasterizarlas. Se intentan conservar anotaciones, formularios y marcadores simples.
+  Destinos avanzados y enlaces hacia páginas excluidas pueden perderse. Firmas previas no se conservan válidas.
+- Recorte y creación de PDF no admiten animaciones/multipágina. Redimensionar mantiene cuadros; ampliar interpola.
+- JPG con giro EXIF necesita recodificación; otros JPG limpian segmentos sin recomprimir. GIF tiene alfa binaria y paleta limitada.
+  La vista previa usa una imagen reducida, mientras el recorte se expresa en píxeles de la imagen orientada original.
+- La limpieza no elimina texto visible, comentarios, rostros, marcas de agua ni valores de formularios. Adjuntos no seleccionados,
+  recursos incrustados y estructuras privadas pueden conservar datos. No se promete anonimización forense ni eliminación de toda información sensible.
+  Profundo elimina JavaScript PDF y puede cambiar cálculos/interactividad de formularios; el contenido visible se conserva.
+- No se probaron físicamente varios monitores, cambios reales de densidad, discos extraíbles, falta real de espacio ni una sesión X11 nativa.
+  Se verificaron rutas Unicode, permisos y escalado de interfaz; no se anuncian las comprobaciones físicas como aprobadas.
 
-## Motores y dependencias
+## Dependencias e instalación
 
-Sistema observado: Fedora 44 KDE; Plasma 6.7.5; Dolphin 26.08.1; sesión Wayland; Python 3.14.8;
-Qt/PySide6 y shiboken6 6.11.2; Pillow 12.3.0; LibreOffice 26.2.6.3 y Poppler disponibles.
+Se reutilizan PyMuPDF 1.27.2.3, Pillow 12.3.0, Python 3.14.8, PySide6/Qt 6.11.2 y la biblioteca estándar.
+Se reutiliza también Kirigami 6.31.0 (`kf6-kirigami`), ya instalado por KDE. 7z 26.04 ya estaba instalado. No se instaló Gemini CLI: no estaba disponible, y no se envió código ni documentos a otro servicio.
+LibreOffice, Poppler y Tesseract mantienen las conversiones 2.0. No se alteró el Python global.
+[Comprobación de fuentes, integración, dependencias y aislamiento de la instalación](v21-installed-final-check.json).
 
-Se añadieron al entorno virtual, sin pip global:
+Se revisaron los registros locales: dos eventos `job_failed` eran anteriores a esta ampliación y uno corresponde a una cancelación del primer capturador de vistas previas por transición de foco. Se corrigió el capturador; el JSON de los once flujos funcionales permanece separado. No se borraron registros. [Revisión del registro](v21-log-review.json).
 
-| Motor | Versión | Función |
-|---|---|---|
-| PyMuPDF | 1.27.2.3 | Texto/estilos, imágenes, tablas, rotación y composición PDF |
-| python-docx | 1.2.0 | Generar DOCX con texto realmente editable |
-| openpyxl | 3.1.5 | Generar y validar XLSX con tablas independientes |
-| et-xmlfile | 2.0.0 | Dependencia de openpyxl |
+El instalador/desinstalador se prueban dentro de la regresión: actualización, importación desde directorio hostil,
+rutas Unicode, rechazo de integración modificada, conservación de archivos ajenos y desinstalación conservadora.
+La acción de Dolphin sigue siendo ejecutable, usa `%F`, lanzador absoluto y prioridad de primer nivel.
+Se añadió `application/octet-stream` e `inode/directory` para archivos generales/carpetas, según la
+[documentación oficial KDE](https://develop.kde.org/docs/apps/dolphin/service-menus/).
 
-El instalador copia también lxml y typing_extensions ya disponibles, junto con las dependencias anteriores,
-a un venv sin `system-site-packages`. La ejecución usa `-I`; se comprobó que `sys.path` no contiene directorios
-`site-packages` de `/usr`. Los motores importan desde la instalación de Convertix y constan en su manifiesto.
-[Diagnóstico de la versión instalada](v2-installed-diagnostics.json).
-La [comprobación final](v2-installed-final-check.json) confirma que los 28 archivos de código instalados coinciden
-con el proyecto, los cinco archivos de integración conservan sus hashes y el intérprete usa aislamiento sin
-paquetes Python globales en su ruta de importación.
+Referencias técnicas: [MuPDF: páginas, guardado y metadatos](https://pymupdf.readthedocs.io/en/latest/document.html),
+[Pillow: formatos y animaciones](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html),
+[Qt Quick: arrastre y orden](https://doc.qt.io/qt-6/qtquick-draganddrop-example.html),
+[OpenSSL CMS para la muestra firmada](https://docs.openssl.org/3.5/man1/openssl-cms/).
 
-Con autorización explícita se instalaron `tesseract-5.5.3-2.fc44` y `tesseract-langpack-spa-4.1.0-12.fc44`.
-`tesseract-langpack-eng-4.1.0-12.fc44` ya estaba instalado. Se verificó la disponibilidad de `spa` y `eng`.
-Fedora requirió autenticación gráfica Polkit; no se guardaron credenciales ni se usó sudo pip.
+## Dolphin: aceptación manual pendiente
 
-Se probó temporalmente otro Pillow dentro del venv para investigar el alfa animado y después se retiró:
-la versión final utiliza el Pillow 12.3.0 original. La corrección usa fotogramas WebP independientes y valida
-su alfa al decodificar; no reemplazó ni alteró el paquete Pillow del sistema.
+Se abrió una instancia XWayland de Dolphin con configuración temporal y archivos sintéticos, se localizaron y
+seleccionaron mediante AT-SPI y se intentó abrir el menú contextual. No se obtuvo una acción visible «Convertir…».
+No se afirma que Dolphin la haya reconocido visualmente. Se cerró únicamente la instancia de prueba y no se modificó
+configuración global de Dolphin/KWin ni se activó un mecanismo de entrada exclusivo de X11 en producción.
 
-`pdf2docx` se evaluó y no se seleccionó porque [Artifex informa que ya no lo mantiene activamente](https://pypi.org/project/pdf2docx/).
-La reconstrucción usa [extracción y tablas de MuPDF](https://pymupdf.readthedocs.io/en/latest/recipes-text.html) con
-[python-docx](https://python-docx.readthedocs.io/en/latest/user/quickstart.html). Para OCR se eligió
-[Tesseract local](https://tesseract-ocr.github.io/tessdoc/Command-Line-Usage.html) con una capa textual selectiva;
-no se necesita introducir OCRmyPDF, procesos extra de Ghostscript o rasterizar todas las páginas digitales.
-Para Markdown/HTML se comparte el modelo estructurado extraído de MuPDF, sin modelos de IA ni descargas durante el uso.
+Pasos para completar la aceptación física:
 
-## Arquitectura y archivos modificados
+1. Abre `examples/v21` en Dolphin. Selecciona `Documento 1.pdf` y `Documento 2.pdf` y abre el clic derecho → **Convertir…**.
+2. En **Modificar → Unir PDFs**, reordena, comprueba el destino mostrado, combina y abre el PDF de seis páginas.
+3. Selecciona `Documento 1.pdf` → **Dividir PDF**. Introduce `1-2;3-4` en modo grupos; comprueba la carpeta con dos PDFs.
+4. Prueba **Optimizar** y comprueba bytes/ahorro. Con un archivo que ya esté optimizado debe informar si no se reduce.
+5. Selecciona las tres imágenes → **Redimensionar**, 50 %, y luego **Crear PDF**; verifica dimensiones y orden.
+6. Abre **Recortar** con una imagen, mueve esquinas y comprueba el resultado. Repite después de cambiar de tema.
+7. Selecciona `Foto con EXIF.jpg` → **Metadatos** y comprueba la copia. Repite con PDF y adjuntos seleccionados.
+8. Selecciona `Carpeta para ZIP` y crea ZIP/7z. Comprueba su contenido con el gestor de archivos comprimidos.
+9. Verifica una conversión anterior DOCX → PDF y PDF → DOCX, originales, notificación, teclado, Escape y cancelación.
 
-Se mantienen `service.py`, los adaptadores existentes y la publicación atómica sin sobrescritura.
-`probe.py` reutiliza el trabajador para que el análisis pesado también sea cancelable, esté limitado y no ocurra
-en el hilo gráfico. `capabilities.py` consulta módulos e idiomas, `pdf_analysis.py` clasifica páginas y detecta tablas,
-`pdf_layout.py` construye el modelo editable y `pdf_export.py` lo serializa. Los nuevos adaptadores son
-`adapters/pdf_documents.py` y `adapters/ocr.py`. LibreOffice se reutiliza solo para intermediarios definidos y validados.
-
-La interfaz sigue en `qml/Main.qml` y `gui.py`; se añadieron transparencia e idiomas a las preferencias existentes.
-La lista completa de archivos añadidos/modificados está en [v2-changed-files.json](v2-changed-files.json).
-El instalador actualizado se probó con actualización, rutas Unicode/espacios, rechazo de archivos alterados,
-aislamiento de imports desde un directorio hostil y desinstalación conservadora. No escribe preferencias al actualizar.
-
-## Dolphin: estado exacto y comprobación manual
-
-El servicio existente sigue instalado en `~/.local/share/kio/servicemenus/convertix.desktop`, es ejecutable,
-usa un lanzador estable, `%F` y `X-KDE-Priority=TopLevel`. El instalador verificó sus campos y hashes.
-No se afirma que Dolphin haya reconocido visualmente la acción: no se pudo abrir su menú por automatización.
-
-Se abrió Dolphin con configuración temporal, se encontraron y seleccionaron los documentos sintéticos por AT-SPI
-y se intentó abrir el contexto. KWin no anuncia el protocolo nativo de entrada para pruebas; también se intentó
-XWayland, sin obtener elementos de menú visibles. No se cambió configuración de KWin ni de accesibilidad global.
-No se declaró aprobado ese flujo ni se sustituyó por lanzar la aplicación desde una terminal.
-
-Comprobación física pendiente:
-
-1. Abre Dolphin en `examples` y haz clic derecho en `Documento de prueba.docx`.
-2. Comprueba **Convertir…** en el primer nivel; selecciónalo y elige PDF en el círculo.
-3. Abre el archivo generado con un nombre disponible, comprueba el original y la notificación KDE.
-4. Abre `examples/v2`, selecciona `PDF digital con tabla.pdf` y repite **Convertir… → DOCX**.
-5. Abre el DOCX y edita una frase o una celda para confirmar editabilidad.
-6. Repite con `PDF escaneado.pdf` → DOCX y `PDF mixto con portada vacía.pdf` → **PDF + OCR**.
-7. En este último, comprueba la selección de texto en las páginas escaneadas y la apariencia original.
-8. Abre otra vez el círculo y haz clic en otra aplicación: debe cerrarse sin convertir. Comprueba también un lote.
-
-Si no aparece el servicio, revisa Dolphin → Configurar Dolphin → Menú contextual, el permiso ejecutable y
+Si no aparece la acción, consulta Dolphin → Configurar → Menú contextual y
 `qtpaths6 --locate-dirs GenericDataLocation kio/servicemenus`. No ejecutes Dolphin como administrador.
-
-## Límites conocidos
-
-- Word/ODT/RTF/Markdown/HTML reconstruyen estructura y formato; no garantizan el diseño exacto del PDF.
-  Los encabezados se estiman por fuentes; dos columnas claras se soportan, composiciones más complejas pueden perder orden.
-- El OCR es selectivo y heurístico. Fotografías o escaneos extraños pueden clasificarse mal; un resultado sin texto útil
-  o de confianza muy baja se rechaza. No mide una precisión universal ni realiza deskew/orientación general sin metadatos.
-- No se separan automáticamente ilustraciones dentro del raster completo de un escaneo. Los recursos digitales separados sí se conservan.
-- Tablas sin líneas, celdas fusionadas y tablas complejas/rotadas pueden no detectarse o perder estructura. No se ofrece extracción arbitraria a Excel.
-- GIF pierde colores/alfa parcial y redondea tiempos; destinos estáticos mantienen todos los cuadros como archivos numerados con advertencia.
-- DOC/XLS/PPT pueden perder funciones modernas; XLS rechaza entradas que exceden su capacidad.
-- El bloqueo de red y los límites de recursos no constituyen un sandbox completo del sistema de archivos.
-- No se probaron físicamente varios monitores, cambios de densidad entre monitores, discos extraíbles ni una sesión X11 nativa.
-  XWayland se identifica expresamente como XWayland. KWin decide la posición de la ventana Wayland; no se afirma colocación exacta junto al cursor.
-- Se conservan los límites de 512 MiB de entrada, 500 páginas/cuadros, 150 millones de píxeles y tiempos configurables descritos en el README.
-
-No quedan regresiones críticas confirmadas en las rutas probadas. La aceptación manual de Dolphin y las
-limitaciones indicadas permanecen abiertas; no se presentan como funcionalidades o pruebas ya completadas.
+Para usar las funciones mientras tanto, abre **Convertix** desde el lanzador o ejecuta
+`~/.local/bin/convertix '/ruta/archivo'`; selecciona **Modificar**. [Guía y ejemplos CLI](../README.md).

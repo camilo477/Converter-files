@@ -40,12 +40,36 @@ def main() -> int:
     parser.add_argument("--diagnose", action="store_true")
     parser.add_argument("--list", action="store_true", help="Mostrar destinos compatibles sin interfaz")
     parser.add_argument("--to", help="Convertir sin interfaz al formato indicado")
+    parser.add_argument("--action", choices=["pdf-merge", "pdf-split", "optimize", "archive", "crop", "resize", "images-pdf", "metadata"], help="Ejecutar una herramienta sin interfaz")
+    parser.add_argument("--options", default="{}", help="Opciones de herramienta como objeto JSON")
+    parser.add_argument("--output-dir", type=Path, help="Carpeta de salida de la herramienta")
+    parser.add_argument("--name", help="Nombre del resultado de la herramienta")
     parser.add_argument("--timeout", type=int, help="Límite por archivo en segundos (10–1800)")
     args = parser.parse_args()
     if args.diagnose:
         print(json.dumps(diagnostics(), ensure_ascii=False, indent=2))
         return 0
     setup_logging()
+    if args.action:
+        if not args.files:
+            parser.error("Selecciona archivos para la herramienta.")
+        try:
+            options = json.loads(args.options)
+            if not isinstance(options, dict):
+                raise ValueError("Se necesita un objeto JSON.")
+        except ValueError as exc:
+            parser.error(f"Opciones inválidas: {exc}")
+        from .tools.service import batch
+        prefs = load()
+        if args.timeout is not None:
+            prefs.timeout = max(10, min(1800, args.timeout))
+        try:
+            records = batch(args.action, args.files, options, destination=args.output_dir,
+                            name=args.name, prefs=prefs)
+            print(json.dumps(records, ensure_ascii=False))
+            return int(any(not r["ok"] for r in records))
+        except KeyboardInterrupt:
+            return 130
     if args.list or args.to:
         if not args.files:
             parser.error("Selecciona al menos un archivo.")

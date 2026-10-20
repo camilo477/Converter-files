@@ -1,11 +1,11 @@
-# Convertix 2.0
+# Convertix 2.1
 
 Conversor de escritorio local para Fedora KDE Plasma 6. Menú radial en Qt Quick,
 motores reales, originales intactos y resultados junto al archivo seleccionado.
 Incluye PDF → Word editable, OCR local español/inglés, extracción de tablas y reconstrucción de documentos.
 No usa servicios externos, IA en la nube, cuentas, telemetría ni descargas durante el uso.
 
-![Menú radial 2.0 en tema oscuro, PNG con alfa real](docs/v2-radial-dark.png)
+![Menú radial 2.1 en tema oscuro](docs/v21-radial-dark.png)
 
 **Estado:** ampliación de la aplicación existente. Las conversiones y la interfaz
 se prueban con archivos sintéticos; consulta [la verificación](docs/VERIFICATION.md) para los resultados
@@ -13,8 +13,8 @@ y los pasos de aceptación todavía pendientes. El clic contextual completo desd
 
 ## Uso
 
-En Dolphin selecciona uno o varios archivos locales, clic derecho → **Convertir…** y selecciona
-un destino en el círculo. El resultado queda junto al original. Puedes abrirlo o mostrarlo en Dolphin.
+En Dolphin selecciona archivos o carpetas locales, clic derecho → **Convertir…**.
+Elige **Convertir** para los destinos habituales o **Modificar** para las herramientas aplicables. El resultado queda junto al original. Puedes abrirlo o mostrarlo en Dolphin.
 La acción está marcada como de primer nivel; su visibilidad definitiva requiere la prueba manual descrita abajo.
 
 - Flechas: recorrer opciones; Enter: convertir; Tab: recorrer controles; Escape: cerrar o cancelar antes de salir.
@@ -44,6 +44,81 @@ No depende de abrir una terminal ni del directorio de este proyecto.
 
 La notificación de KDE se emite desde la interfaz. La CLI informa por su salida y código de retorno
 (0 correcto, 1 si hubo errores, 130 al interrumpir). Para rutas que comienzan por guion utiliza `--`.
+
+## Herramientas de Convertix 2.1
+
+La categoría **Modificar** conserva el círculo, tema, transparencia, teclado y ratón. Cada operación abre
+una ventana QML secundaria; sus parámetros se aplican a copias. Las herramientas incompatibles se ocultan.
+Los archivos generales y carpetas ofrecen crear archivos comprimidos, sin simular conversiones.
+
+| Herramienta | Selección y opciones |
+|---|---|
+| Unir PDFs | Uno o varios PDFs; añade otros, quita y reordena por arrastre o flechas. Muestra páginas, tamaño y miniatura. Conserva páginas de distintos tamaños y orientaciones. |
+| Dividir PDF | Un PDF; miniaturas diferidas, selección con clic o rangos. Extraer `1,3,5-8`, un archivo por página, intervalos o grupos `1-5;6-10;11-20`. |
+| Optimizar tamaño | PDF, JPG, PNG y WebP, también en lotes. Sin pérdida, Equilibrado y Máximo según formato; tamaño original/final y ahorro calculado. |
+| Crear ZIP / 7z | Uno o varios archivos/carpetas; nivel 0–9. ZIP usa Python estándar; 7z solo aparece si existe `7z`/`7zz`. No incluye extracción. |
+| Recortar | Imagen estática; mueve la selección y arrastra esquinas, con zoom, vista previa, dimensiones y relaciones Libre, 1:1, 4:3, 3:2, 16:9 u original. Flechas mueven un píxel, Mayús diez. |
+| Redimensionar | Una imagen o lote; porcentajes 25/50/75/200, límites 1920×1080 y 1280×720 o dimensiones propias. Proporciones bloqueadas inicialmente; LANCZOS por defecto. |
+| Crear PDF con imágenes | Una o varias imágenes estáticas; orden, miniaturas, A4/Carta/imagen/personalizado, orientación, márgenes y contener/llenar/tamaño de impresión. Transparencia sobre blanco. |
+| Eliminar metadatos | JPG, PNG, WebP, TIFF y PDF; categorías detectadas, modos estándar/profundo y verificación de campos seleccionados antes de publicar. |
+
+**Destino visible:** la ventana propone la carpeta del primer archivo de la selección inicial, aunque luego
+reordenes la lista. Puedes elegir otra carpeta. Esta política también se aplica a selecciones de distintas carpetas.
+Los archivos comprimidos deben guardarse fuera de las carpetas que contienen. En lotes, cada archivo conserva su
+nombre base; los resultados se guardan en el destino mostrado. No hay sobrescritura.
+
+La división con varios resultados publica una carpeta completa, por ejemplo `documento_partes/`, mediante
+una única operación atómica. Unir, crear PDF y crear archivo comprimido son trabajos únicos. Redimensionar,
+optimizar y limpiar por lotes publican cada archivo independientemente: si hay error o cancelación, se muestran
+los completados y pendientes con su estado; no se anuncia éxito completo para un lote parcial.
+
+**Optimización y archivos comprimidos son diferentes.** Optimizar mantiene el formato; crear ZIP/7z empaqueta
+los originales. Un ZIP puede crecer. La optimización rechaza resultados iguales o mayores por defecto; solo los
+conserva si marcas expresamente la opción correspondiente. JPG requiere recodificación con pérdida; PNG sin
+pérdida optimiza el codificador, y sus otros modos reducen colores. PDF sin pérdida optimiza objetos/flujos;
+los otros modos recomprimen imágenes a resoluciones orientativas de 150/96 ppp, conservando texto seleccionable.
+No se rasterizan todas las páginas del PDF. No se prometen ahorros mínimos.
+
+Recortar está deshabilitado para animaciones/multipágina. Redimensionar, optimizar WebP/PNG y limpiar formatos
+compatibles conservan cuadros y temporización; la salida se decodifica para comprobarlo. Crear PDF no admite
+animaciones/multipágina: utiliza la conversión habitual si quieres todos los cuadros como páginas.
+La ampliación convencional usa interpolación; no es superresolución.
+
+**Privacidad:** la limpieza genera copias, conserva orientación aplicada, perfil ICC y transparencia. El modo
+estándar conserva la resolución de impresión; profundo la omite cuando el formato lo permite. JPG sin giro EXIF
+se limpia retirando segmentos auxiliares sin recomprimir; si necesita girarse, se recodifica a calidad 100.
+PDF elimina campos estándar y XMP; profundo también retira XMP de objetos, PieceInfo, autor/fechas de anotaciones
+y JavaScript. Los adjuntos solo se eliminan si lo eliges expresamente. Se conserva el contenido visible,
+comentarios, formularios, enlaces y texto OCR; puede contener información personal. No es censura ni anonimización
+forense. Recursos incrustados, valores de formularios y estructuras privadas pueden contener otros datos.
+
+Los PDFs con campos de firma requieren aceptar que la copia reescrita puede invalidar firmas. Se intentan
+conservar anotaciones y formularios compatibles; marcadores simples se trasladan. Los enlaces a páginas excluidas,
+destinos complejos, firmas y funciones avanzadas no tienen garantía de conservación. Los PDFs cifrados o dañados
+se rechazan. Se guardan copias completas, sin revisiones incrementales anteriores.
+
+Ejemplos de CLI (los archivos se guardan sin sobrescribir):
+
+```bash
+~/.local/bin/convertix --action pdf-merge -- 'uno.pdf' 'dos.pdf'
+~/.local/bin/convertix --action pdf-split --options '{"split_mode":"ranges","pages":"1-5;6-10"}' -- 'documento.pdf'
+~/.local/bin/convertix --action optimize --options '{"level":"balanced"}' -- 'documento.pdf'
+~/.local/bin/convertix --action resize --options '{"percent":50}' -- 'foto.png' 'otra.jpg'
+~/.local/bin/convertix --action crop --options '{"box":[100,50,500,350]}' -- 'foto.png'
+~/.local/bin/convertix --action images-pdf --options '{"page_size":"letter","margin_mm":8}' -- 'foto1.jpg' 'foto2.png'
+~/.local/bin/convertix --action metadata --options '{"metadata_mode":"deep","remove_attachments":true}' -- 'documento.pdf'
+~/.local/bin/convertix --action archive --options '{"archive_format":"zip","compression":6}' -- 'carpeta' 'archivo.txt'
+```
+
+`--output-dir /ruta` elige destino y `--name resultado.pdf` un nombre. `--timeout` también se aplica a herramientas.
+La CLI devuelve JSON con estado por archivo y código 1 si hay incidencias. No emite notificaciones KDE; la interfaz sí.
+Ejemplos sintéticos: `examples/v21`, creados con `scripts/make_v21_examples.py` (rechaza sobrescribir la carpeta).
+
+Las herramientas usan los motores ya instalados: PyMuPDF, Pillow, Python estándar y 7z opcional. Esta ampliación
+no necesita nuevos paquetes Python ni del sistema. Las copias previas y los trabajadores están limitados; para
+archivos comprimidos se admiten hasta 2 GiB sin comprimir, 10 000 entradas y 64 niveles de carpetas. El resto conserva 512 MiB por entrada,
+500 páginas/cuadros y 150 millones de píxeles acumulados. Los enlaces simbólicos, dispositivos y FIFOs se rechazan.
+El trabajador hereda los límites de recursos y bloqueo de red. No constituye un sandbox completo de archivos.
 
 ## Formatos
 
@@ -152,7 +227,7 @@ Desde este proyecto:
 El instalador funciona sin red y sin `sudo`. Crea un venv **sin `system-site-packages`** y copia
 localmente PySide6, shiboken6, Pillow, olefile y los motores PDF disponibles, con sus dependencias y metadatos.
 Los módulos nuevos se buscan primero en `.venv`; nunca se usa pip global.
-Qt nativo, LibreOffice, Poppler, Tesseract y libseccomp siguen siendo herramientas del sistema.
+Qt nativo, Kirigami de KDE, LibreOffice, Poppler, Tesseract y libseccomp siguen siendo herramientas del sistema.
 No modifica los paquetes de Fedora ni el Python global. El manifiesto registra las versiones copiadas.
 Después de actualizar Python/Qt en Fedora, vuelve a ejecutar el instalador para reconstruir el entorno compatible.
 

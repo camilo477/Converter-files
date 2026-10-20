@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
+import org.kde.kirigami as Kirigami
 
 ApplicationWindow {
     id: root
@@ -32,6 +33,10 @@ ApplicationWindow {
     property int motion: backend.preferences.animations ? 220 : 0
     property bool departing: false
     property real decorAlpha: 1 - backend.preferences.radial_transparency / 100
+    Kirigami.Theme.inherit: false
+    Kirigami.Theme.backgroundColor: surface
+    Kirigami.Theme.textColor: ink
+    Kirigami.Theme.highlightColor: accent
     function translucent(base, alpha) { return Qt.rgba(base.r, base.g, base.b, alpha) }
     palette.window: surface
     palette.windowText: ink
@@ -66,11 +71,11 @@ ApplicationWindow {
             hadFocus = true
             if (!settings.opened && !details.opened) keyArea.forceActiveFocus()
         }
-        else if (hadFocus && backend.status === "ready" && !settings.opened && !details.opened) blurTimer.restart()
+        else if (hadFocus && backend.status === "ready" && tool.status === "closed" && !settings.opened && !details.opened) blurTimer.restart()
     }
     Timer {
         id: blurTimer; interval: 180
-        onTriggered: if (!root.active && backend.status === "ready" && !settings.opened && !details.opened) root.requestClose()
+        onTriggered: if (!root.active && backend.status === "ready" && tool.status === "closed" && !settings.opened && !details.opened) root.requestClose()
     }
     Connections {
         target: backend
@@ -83,6 +88,10 @@ ApplicationWindow {
 
     Item {
         id: keyArea
+        Kirigami.Theme.inherit: false
+        Kirigami.Theme.backgroundColor: root.surface
+        Kirigami.Theme.textColor: root.ink
+        Kirigami.Theme.highlightColor: root.accent
         objectName: "keyArea"
         width: 640; height: 664
         scale: root.uiScale
@@ -125,9 +134,17 @@ ApplicationWindow {
             Text { text: "convertix"; color: root.ink; font.pixelSize: 18; font.weight: Font.DemiBold; font.letterSpacing: 0.5 }
         }
         Text { x: 36; y: 59; text: "TRANSFORMA TUS ARCHIVOS"; font.pixelSize: 9; font.letterSpacing: 1.8; color: root.muted }
+        Row {
+            visible: backend.status === "ready"
+            x: 255; y: 26; spacing: 4
+            Button { objectName: "convertCategory"; text: "Convertir"; checked: backend.activeCategory === "convert"; checkable: true; onClicked: backend.setCategory("convert"); width: 112 }
+            Button { objectName: "modifyCategory"; text: "Modificar"; checked: backend.activeCategory === "modify"; checkable: true; onClicked: backend.setCategory("modify"); width: 112 }
+        }
         ToolButton {
             objectName: "settingsButton"; x: 520; y: 24; width: 38; height: 38
             text: "⚙"; font.pixelSize: 22; Accessible.name: "Preferencias"
+            padding: 0
+            contentItem: Text { text: parent.text; font: parent.font; color: root.ink; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter }
             enabled: backend.status !== "processing" && backend.status !== "scanning"
             onClicked: settings.open()
             background: Rectangle { radius: 14; color: root.translucent(root.surface, 0.96); border.color: parent.hovered ? root.accent : root.edge }
@@ -136,6 +153,8 @@ ApplicationWindow {
         ToolButton {
             x: 565; y: 24; width: 38; height: 38
             text: "×"; font.pixelSize: 25; Accessible.name: "Cerrar"
+            padding: 0
+            contentItem: Text { text: parent.text; font: parent.font; color: root.ink; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter }
             onClicked: root.requestClose()
             background: Rectangle { radius: 14; color: root.translucent(root.surface, 0.96); border.color: parent.hovered ? root.accent : root.edge }
         }
@@ -176,7 +195,7 @@ ApplicationWindow {
                     y: 320 + Math.sin(angle)*193 - height/2
                     width: 102; height: 88
                     hoverEnabled: true
-                    Accessible.name: "Convertir a " + modelData.label
+                    Accessible.name: modelData.target.indexOf("tool:") === 0 ? modelData.label : "Convertir a " + modelData.label
                     Accessible.description: modelData.hint
                     activeFocusOnTab: true
                     scale: hovered || activeFocus ? 1.055 : 1
@@ -196,7 +215,7 @@ ApplicationWindow {
                     contentItem: Column {
                         spacing: 7; topPadding: 13
                         Image { anchors.horizontalCenter: parent.horizontalCenter; width: 28; height: 28; source: "image://theme/" + option.modelData.icon; sourceSize.width: 56; sourceSize.height: 56 }
-                        Text { anchors.horizontalCenter: parent.horizontalCenter; text: option.modelData.label; color: root.ink; font.pixelSize: 12; font.weight: Font.DemiBold; font.letterSpacing: 0.5 }
+                        Text { width: 96; anchors.horizontalCenter: parent.horizontalCenter; horizontalAlignment: Text.AlignHCenter; wrapMode: Text.WordWrap; text: option.modelData.label; color: root.ink; font.pixelSize: 12; font.weight: Font.DemiBold; font.letterSpacing: 0.5 }
                     }
                 }
             }
@@ -211,7 +230,7 @@ ApplicationWindow {
                 color: root.muted; font.pixelSize: 11; wrapMode: Text.WordWrap; elide: Text.ElideRight; maximumLineCount: 3
             }
             Rectangle { visible: root.pageCount === 1; x: 156; y: 624; width: 328; height: 24; radius: 12; color: root.translucent(root.surface, 0.94) }
-            Text { visible: root.pageCount === 1; anchors.horizontalCenter: parent.horizontalCenter; y: 631; text: "↑ ↓ ELEGIR     ↵ CONVERTIR     ESC CERRAR"; color: root.muted; font.pixelSize: 9; font.letterSpacing: 0.6 }
+            Text { visible: root.pageCount === 1; anchors.horizontalCenter: parent.horizontalCenter; y: 631; text: backend.activeCategory === "modify" ? "↑ ↓ ELEGIR     ↵ ABRIR     ESC CERRAR" : "↑ ↓ ELEGIR     ↵ CONVERTIR     ESC CERRAR"; color: root.muted; font.pixelSize: 9; font.letterSpacing: 0.6 }
             Rectangle { visible: root.pageCount > 1; x: 244; y: 616; width: 152; height: 42; radius: 18; color: root.translucent(root.surface, 0.94) }
             Row {
                 visible: root.pageCount > 1; anchors.horizontalCenter: parent.horizontalCenter; y: 618; spacing: 8
@@ -269,6 +288,8 @@ ApplicationWindow {
             }
         }
     }
+
+    ToolWindow { id: toolsWindow; host: root; transientParent: root }
 
     Dialog {
         id: settings; title: "Preferencias"; modal: true

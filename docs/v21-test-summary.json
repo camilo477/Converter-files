@@ -1,0 +1,72 @@
+{
+  "distinct_passed_cases": 205,
+  "reports": [
+    {
+      "report": "v21-full-tests.xml",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "201",
+      "time": "283.838",
+      "timestamp": "2026-10-20T09:10:13.395190-05:00",
+      "hostname": "192.168.80.23"
+    },
+    {
+      "report": "v21-final-safety.xml",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "18",
+      "time": "1.852",
+      "timestamp": "2026-10-20T09:25:18.065196-05:00",
+      "hostname": "192.168.80.23"
+    },
+    {
+      "report": "v21-final-crop.xml",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "3",
+      "time": "9.423",
+      "timestamp": "2026-10-20T09:27:28.244211-05:00",
+      "hostname": "192.168.80.23"
+    },
+    {
+      "report": "v21-signed-pdf.xml",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "1",
+      "time": "0.910",
+      "timestamp": "2026-10-20T09:11:45.846065-05:00",
+      "hostname": "192.168.80.23"
+    },
+    {
+      "report": "v21-wayland.xml",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "1",
+      "tests": "33",
+      "time": "99.696",
+      "timestamp": "2026-10-20T09:16:09.376145-05:00",
+      "hostname": "192.168.80.23"
+    },
+    {
+      "report": "v21-xwayland.xml",
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "33",
+      "time": "105.787",
+      "timestamp": "2026-10-20T09:22:01.416656-05:00",
+      "hostname": "192.168.80.23"
+    }
+  ],
+  "note": "Reports repeat cases; native Wayland focus loss has one explicit skip."
+}

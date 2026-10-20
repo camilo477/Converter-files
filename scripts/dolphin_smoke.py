@@ -63,6 +63,7 @@ def context_key_for_pid(pid):
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--prefix',type=Path,default=Path('/tmp/convertix-v2-desktop-prefix'))
+    parser.add_argument('--report-prefix',default='v2',choices=['v2','v21'])
     args=parser.parse_args()
     import pyatspi
     from docx import Document
@@ -93,7 +94,7 @@ def main():
         shutil.copyfile(project/'examples/Documento de prueba.pdf',files/'Entrada PDF.pdf')
         env=os.environ.copy();env.update(QT_QPA_PLATFORM='xcb',QT_LINUX_ACCESSIBILITY_ALWAYS_ON='1',QT_ACCESSIBILITY='1',
             XDG_CONFIG_HOME=str(folder/'config'),XDG_DATA_HOME=str(args.prefix/'share'))
-        log=(project/'docs/v2-dolphin-desktop.log').open('w')
+        log=(project/f'docs/{args.report_prefix}-dolphin-desktop.log').open('w')
         try:
             record['stage']='start_dolphin'
             dolphin=subprocess.Popen(['dolphin','--new-window',str(files)],env=env,stdout=log,stderr=log)
@@ -151,7 +152,7 @@ def main():
                 try:dolphin.wait(timeout=4)
                 except subprocess.TimeoutExpired:dolphin.kill();dolphin.wait()
             log.close()
-    (project/'docs/v2-dolphin-result.json').write_text(json.dumps(record,indent=2))
+    (project/f'docs/{args.report_prefix}-dolphin-result.json').write_text(json.dumps(record,indent=2))
     print(json.dumps(record,indent=2))
     return 0 if record['passed'] else 2
 
