@@ -1,0 +1,95 @@
+{
+  "menu_component": "installed org.kde.private.desktopcontainment.folder/FolderModel",
+  "menu_backend": "offscreen",
+  "session": "wayland",
+  "physical_plasmashell_click": "manual verification pending",
+  "cases": [
+    {
+      "scheme": "desktop",
+      "selection": [
+        ".png"
+      ],
+      "action_count": 0,
+      "expected_visible": false
+    },
+    {
+      "scheme": "desktop",
+      "selection": [
+        ".png",
+        ".png"
+      ],
+      "action_count": 0,
+      "expected_visible": false
+    },
+    {
+      "scheme": "desktop",
+      "selection": [
+        ".pdf"
+      ],
+      "action_count": 0,
+      "expected_visible": false
+    },
+    {
+      "scheme": "desktop",
+      "selection": [
+        ".png",
+        ".pdf"
+      ],
+      "action_count": 0,
+      "expected_visible": false
+    },
+    {
+      "scheme": "desktop",
+      "selection": [],
+      "action_count": 0,
+      "expected_visible": false
+    },
+    {
+      "scheme": "file",
+      "selection": [
+        ".png"
+      ],
+      "action_count": 1,
+      "expected_visible": true,
+      "top_level": true
+    },
+    {
+      "scheme": "file",
+      "selection": [
+        ".png",
+        ".png"
+      ],
+      "action_count": 1,
+      "expected_visible": true,
+      "top_level": true
+    },
+    {
+      "scheme": "file",
+      "selection": [
+        ".pdf"
+      ],
+      "action_count": 1,
+      "expected_visible": true,
+      "top_level": true
+    },
+    {
+      "scheme": "file",
+      "selection": [
+        ".png",
+        ".pdf"
+      ],
+      "action_count": 1,
+      "expected_visible": true,
+      "top_level": true
+    },
+    {
+      "scheme": "file",
+      "selection": [],
+      "action_count": 0,
+      "expected_visible": false
+    }
+  ],
+  "passed": true,
+  "originals_unchanged": true,
+  "synthetic_files_removed": true
+}

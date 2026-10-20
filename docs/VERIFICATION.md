@@ -1,5 +1,9 @@
 # Convertix 2.1 — Verificación del 20 de octubre de 2026
 
+La corrección posterior para Folder View, con diagnóstico, pruebas antes/después y actualización de
+`~/.local`, está en [Integración con los archivos del escritorio](DESKTOP-INTEGRATION.md).
+El informe siguiente conserva los resultados de la ampliación 2.1.
+
 ## Resultado
 
 Se amplió la aplicación existente y se actualizó la instalación en `~/.local` a **2.1.0**.

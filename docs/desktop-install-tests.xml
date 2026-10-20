@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="6.800" timestamp="2026-10-20T09:56:52.289258-05:00" hostname="192.168.80.23"><testcase classname="tests.test_install" name="test_install_update_conflict_and_uninstall" time="6.783" /></testsuite></testsuites>

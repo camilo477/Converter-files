@@ -1,0 +1,19 @@
+{
+  "version": "2.1.0",
+  "source_files": 48,
+  "application_sources_unchanged": true,
+  "preferences_unchanged": true,
+  "managed_files_verified": 5,
+  "service_mode": "0o755",
+  "service_change_only_protocols": true,
+  "protocols": [
+    "file",
+    "desktop"
+  ],
+  "top_level_preserved": true,
+  "exec_preserved": true,
+  "multiple_files_preserved": true,
+  "initial_probe_removed": true,
+  "plasma_restarted": false,
+  "system_packages_installed": false
+}

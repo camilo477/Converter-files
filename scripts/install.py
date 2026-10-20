@@ -127,13 +127,14 @@ def main():
         launcher_text = f'#!/bin/sh\nexec {shlex.quote(str(exe))} -I -m convertix "$@"\n'
         uninstall_text = f'#!/bin/sh\nexec {shlex.quote(str(exe))} -I {shlex.quote(str(current/"uninstall.py"))} --prefix {shlex.quote(str(prefix))} "$@"\n'
         mime = "application/octet-stream;inode/directory;image/png;image/jpeg;image/webp;image/bmp;image/tiff;image/gif;application/pdf;text/plain;text/markdown;text/html;text/csv;text/tab-separated-values;application/rtf;application/msword;application/vnd.openxmlformats-officedocument.wordprocessingml.document;application/vnd.oasis.opendocument.text;application/vnd.ms-excel;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;application/vnd.oasis.opendocument.spreadsheet;application/vnd.ms-powerpoint;application/vnd.openxmlformats-officedocument.presentationml.presentation;application/vnd.oasis.opendocument.presentation;"
+        # Folder View keeps desktop:/ URLs for local desktop files; Dolphin uses file:.
         service_text = f'''[Desktop Entry]
 Type=Service
 Name=Convertix
 MimeType={mime}
 Actions=convertix;
 X-KDE-Priority=TopLevel
-X-KDE-Protocols=file
+X-KDE-Protocols=file,desktop
 
 [Desktop Action convertix]
 Name=Convertir…

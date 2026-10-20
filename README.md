@@ -9,11 +9,13 @@ No usa servicios externos, IA en la nube, cuentas, telemetría ni descargas dura
 
 **Estado:** ampliación de la aplicación existente. Las conversiones y la interfaz
 se prueban con archivos sintéticos; consulta [la verificación](docs/VERIFICATION.md) para los resultados
-y los pasos de aceptación todavía pendientes. El clic contextual completo desde Dolphin no se da por probado.
+y los pasos de aceptación todavía pendientes. La [integración con el escritorio](docs/DESKTOP-INTEGRATION.md)
+se comprobó con el FolderModel instalado de Plasma y el menú radial real; el clic físico en Plasma y Dolphin sigue pendiente.
 
 ## Uso
 
-En Dolphin selecciona archivos o carpetas locales, clic derecho → **Convertir…**.
+En Dolphin o sobre archivos del escritorio con **Vista de carpeta / Folder View**, selecciona uno o varios
+archivos locales y usa clic derecho → **Convertir…**. También se conservan las carpetas locales de Dolphin.
 Elige **Convertir** para los destinos habituales o **Modificar** para las herramientas aplicables. El resultado queda junto al original. Puedes abrirlo o mostrarlo en Dolphin.
 La acción está marcada como de primer nivel; su visibilidad definitiva requiere la prueba manual descrita abajo.
 
@@ -242,7 +244,10 @@ Rutas por defecto:
 ~/.local/share/icons/hicolor/scalable/apps/convertix.svg
 ```
 
-La acción de Dolphin es ejecutable, usa `%F`, argumentos separados y `X-KDE-Priority=TopLevel`.
+La acción compartida por Dolphin y Folder View es ejecutable, usa `%F`, argumentos separados,
+`X-KDE-Priority=TopLevel` y `X-KDE-Protocols=file,desktop`. Folder View utiliza `desktop:/` incluso
+para archivos locales: limitar el servicio a `file` ocultaba la acción en el escritorio.
+Se usa el mismo lanzador y menú radial; no se instala otro complemento ni una acción para el fondo vacío.
 El lanzador usa Python `-I`, con rutas absolutas, para evitar importar código desde la carpeta de un documento.
 El instalador rechaza archivos ajenos o modificados en sus rutas de integración. Las actualizaciones usan
 una nueva versión local y un enlace estable. Se conservan las versiones anteriores hasta desinstalar.
@@ -276,6 +281,9 @@ Si no aparece la acción, revisa Dolphin → Configurar Dolphin → Menú contex
 verifica el permiso ejecutable y comprueba `qtpaths6 --locate-dirs GenericDataLocation kio/servicemenus`.
 No ejecutes Dolphin como administrador. Una instancia ya abierta puede necesitar cerrar y volver a abrir
 su menú contextual. La documentación de KDE indica que relee los servicios al cambiar.
+En el escritorio comprueba que el diseño sea **Vista de carpeta** y que el servicio admita `file,desktop`.
+No cambies el diseño ni reinicies Plasma para aplicar esta corrección. Consulta las
+[pruebas del escritorio y aceptación manual](docs/DESKTOP-INTEGRATION.md).
 
 En Wayland KWin decide la posición de una ventana independiente; Convertix no afirma abrir exactamente
 junto al cursor. Se ajusta al área disponible de una pantalla y conserva el círculo. En X11 solicita una
