@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "release": "/home/camiska/.local/share/convertix/releases/2.0.0-1792472789356536288",
+  "source_files_checked": 28,
+  "source_differences": [],
+  "integration_hashes": {
+    "/home/camiska/.local/bin/convertix": true,
+    "/home/camiska/.local/bin/convertix-uninstall": true,
+    "/home/camiska/.local/share/kio/servicemenus/convertix.desktop": true,
+    "/home/camiska/.local/share/applications/org.convertix.Convertix.desktop": true,
+    "/home/camiska/.local/share/icons/hicolor/scalable/apps/convertix.svg": true
+  },
+  "isolated_mode": 1,
+  "system_site_packages": []
+}

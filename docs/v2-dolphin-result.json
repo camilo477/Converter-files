@@ -1,0 +1,16 @@
+{
+  "session": "wayland",
+  "dolphin_backend": "xcb / XWayland",
+  "passed": false,
+  "flows": [],
+  "stage": "context_action_Entrada Word.docx",
+  "reason": "Timed out waiting for a desktop action",
+  "dolphin_exit_code": null,
+  "accessible_apps": [
+    {
+      "name": "dolphin",
+      "pid": 32328
+    }
+  ],
+  "visible_menu_items": []
+}

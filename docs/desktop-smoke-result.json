@@ -1,0 +1,9 @@
+{
+  "platform": "wayland",
+  "mouse_selection": true,
+  "pdf": "/mnt/Fedora-Z/converter-files/examples/Documento de prueba (convertido 2).pdf",
+  "original_sha256": "e1ca41feabf7d7cc1e66bd4265942141dff62f2da7f0768f031a44a0b8563f87",
+  "original_unchanged": true,
+  "notification_accepted": true,
+  "dolphin_context_menu": "pending manual validation"
+}

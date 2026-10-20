@@ -1,0 +1,6 @@
+{
+  "dolphin": true,
+  "file_accessible": true,
+  "context_action_visible": false,
+  "wayland_keyboard_injection": "atspi attempt"
+}

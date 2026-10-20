@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "convertix"
+version = "2.0.0"
+description = "Conversión local de archivos con un menú radial para KDE Plasma 6"
+requires-python = ">=3.11"
+dependencies = ["PySide6>=6.6", "Pillow>=10", "olefile>=0.47"]
+license = "GPL-3.0-or-later"
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+pdf = ["PyMuPDF==1.27.2.3", "python-docx==1.2.0", "openpyxl==3.1.5"]
+
+[project.scripts]
+convertix = "convertix.cli:main"
+
+[tool.setuptools.package-data]
+convertix = ["qml/*.qml"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = ["integration: conversiones con motores reales", "gui: interacción Qt Quick"]
+

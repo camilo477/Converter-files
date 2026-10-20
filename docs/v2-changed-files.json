@@ -1,0 +1,150 @@
+[
+  {
+    "file": "src/convertix/__init__.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/adapters/images.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/adapters/ocr.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/adapters/office.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/adapters/pdf_documents.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/capabilities.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/cli.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/config.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/detect.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/gui.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/models.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/office_limits.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/pdf_analysis.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/pdf_export.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/pdf_layout.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/probe.py",
+    "change": "added"
+  },
+  {
+    "file": "src/convertix/registry.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/service.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/validate.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/worker.py",
+    "change": "modified"
+  },
+  {
+    "file": "src/convertix/qml/Main.qml",
+    "change": "modified"
+  },
+  {
+    "file": "scripts/desktop_smoke.py",
+    "change": "modified"
+  },
+  {
+    "file": "scripts/dolphin_smoke.py",
+    "change": "added"
+  },
+  {
+    "file": "scripts/install.py",
+    "change": "modified"
+  },
+  {
+    "file": "scripts/make_v2_examples.py",
+    "change": "added"
+  },
+  {
+    "file": "tests/test_animation_v2.py",
+    "change": "added"
+  },
+  {
+    "file": "tests/test_engine.py",
+    "change": "modified"
+  },
+  {
+    "file": "tests/test_gui.py",
+    "change": "modified"
+  },
+  {
+    "file": "tests/test_install.py",
+    "change": "modified"
+  },
+  {
+    "file": "tests/test_legacy_export_v2.py",
+    "change": "added"
+  },
+  {
+    "file": "tests/test_pdf_v2.py",
+    "change": "added"
+  },
+  {
+    "file": "tests/test_preferences_v2.py",
+    "change": "added"
+  },
+  {
+    "file": "pyproject.toml",
+    "change": "modified"
+  },
+  {
+    "file": "README.md",
+    "change": "modified"
+  },
+  {
+    "file": "requirements-pdf.txt",
+    "change": "added"
+  },
+  {
+    "file": "docs/VERIFICATION.md",
+    "change": "modified"
+  },
+  {
+    "file": "docs/VERIFICATION-v1.md",
+    "change": "added (baseline preserved)"
+  }
+]

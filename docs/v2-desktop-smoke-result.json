@@ -1,0 +1,60 @@
+{
+  "platform": "wayland",
+  "cases": [
+    {
+      "source": "/mnt/Fedora-Z/converter-files/examples/Documento de prueba.docx",
+      "target": "pdf",
+      "output": "/mnt/Fedora-Z/converter-files/examples/Documento de prueba (convertido 4).pdf",
+      "original_sha256": "e1ca41feabf7d7cc1e66bd4265942141dff62f2da7f0768f031a44a0b8563f87",
+      "original_unchanged": true,
+      "mouse_selection": true,
+      "notification_accepted": true
+    },
+    {
+      "source": "/mnt/Fedora-Z/converter-files/examples/v2/PDF digital con tabla.pdf",
+      "target": "docx",
+      "output": "/mnt/Fedora-Z/converter-files/examples/v2/PDF digital con tabla (convertido 2).docx",
+      "original_sha256": "79bbdc745fed4541c6d68acbc016cc33a9f09fac03322e58605f44ff90affa4a",
+      "original_unchanged": true,
+      "mouse_selection": true,
+      "notification_accepted": true
+    },
+    {
+      "source": "/mnt/Fedora-Z/converter-files/examples/v2/PDF escaneado.pdf",
+      "target": "docx",
+      "output": "/mnt/Fedora-Z/converter-files/examples/v2/PDF escaneado (convertido 2).docx",
+      "original_sha256": "829f754ca8b703ce3e5f769e45e8e060e73acd5497421d2976eb079404021391",
+      "original_unchanged": true,
+      "mouse_selection": true,
+      "notification_accepted": true
+    },
+    {
+      "source": "/mnt/Fedora-Z/converter-files/examples/v2/PDF escaneado.pdf",
+      "target": "md",
+      "output": "/mnt/Fedora-Z/converter-files/examples/v2/PDF escaneado.md",
+      "original_sha256": "829f754ca8b703ce3e5f769e45e8e060e73acd5497421d2976eb079404021391",
+      "original_unchanged": true,
+      "mouse_selection": true,
+      "notification_accepted": true
+    },
+    {
+      "source": "/mnt/Fedora-Z/converter-files/examples/v2/PDF digital con tabla.pdf",
+      "target": "xlsx",
+      "output": "/mnt/Fedora-Z/converter-files/examples/v2/PDF digital con tabla.xlsx",
+      "original_sha256": "79bbdc745fed4541c6d68acbc016cc33a9f09fac03322e58605f44ff90affa4a",
+      "original_unchanged": true,
+      "mouse_selection": true,
+      "notification_accepted": true
+    },
+    {
+      "source": "/mnt/Fedora-Z/converter-files/examples/v2/PDF mixto con portada vac\u00eda.pdf",
+      "target": "pdf-ocr",
+      "output": "/mnt/Fedora-Z/converter-files/examples/v2/PDF mixto con portada vac\u00eda (convertido 3).pdf",
+      "original_sha256": "1ef16f312904294ebfdf19113d36cdc59dfd942446525b2fe76159ca1432b3c7",
+      "original_unchanged": true,
+      "mouse_selection": true,
+      "notification_accepted": true
+    }
+  ],
+  "dolphin_context_menu": "separate test; do not infer from this result"
+}
